@@ -12,6 +12,7 @@ const { texto, resultado, errores, estado, procesar, cargarEjemplo, limpiar } = 
       <div><p class="eyebrow">SQL hacia álgebra relacional</p><h2 id="sql-reader-title">Construir un árbol desde SQL</h2></div>
       <span class="status">Subconjunto PostgreSQL</span>
     </div>
+    <details class="entry-editor" :open="!resultado"><summary><span class="entry-icon" aria-hidden="true">SQL</span> Editar consulta SQL</summary>
     <form class="reader-form" @submit.prevent="procesar">
       <label for="tree-sql">Consulta SQL</label>
       <p id="sql-help" class="field-help">
@@ -25,6 +26,7 @@ const { texto, resultado, errores, estado, procesar, cargarEjemplo, limpiar } = 
         <button class="button-secondary" type="button" @click="limpiar">Limpiar SQL</button>
       </div>
     </form>
+    </details>
     <div v-if="errores.length" class="validation-errors" role="alert">
       <h3>No se pudo construir el árbol SQL</h3>
       <ul>
@@ -35,13 +37,15 @@ const { texto, resultado, errores, estado, procesar, cargarEjemplo, limpiar } = 
       </ul>
     </div>
     <p class="reader-status" role="status" aria-live="polite">
-      {{ estado === 'valido' ? 'Consulta admitida. Árbol lógico actualizado.' : estado === 'invalido' ? 'Revisa la sintaxis y el subconjunto SQL admitido.' : 'Edita la consulta y pulsa Procesar SQL.' }}
+      {{ estado === 'valido' ? 'Árbol listo para escuchar.' : estado === 'invalido' ? 'Revisa la sintaxis y el subconjunto SQL admitido.' : 'Edita la consulta y pulsa Generar árbol desde SQL.' }}
     </p>
     <template v-if="resultado">
+      <details class="technical-details"><summary>Opciones de la consulta</summary>
       <button class="button-secondary transfer-json" type="button" @click="$emit('enviar-json', resultado.arbol)">Enviar árbol al editor JSON</button>
       <details class="result-details sql-analysis">
         <summary>Tablas, alias, columnas y condiciones identificados</summary>
         <pre class="normalized-json" tabindex="0">{{ JSON.stringify(resultado.analisisSQL, null, 2) }}</pre>
+      </details>
       </details>
       <TreeWorkbench :resultado="resultado" @comparar="$emit('comparar', $event)" />
     </template>

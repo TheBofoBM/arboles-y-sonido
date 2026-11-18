@@ -3,6 +3,7 @@
 import { pathToFileURL, fileURLToPath } from 'node:url'
 import fs from 'node:fs/promises'
 import assert from 'node:assert/strict'
+import { comprobarInterfaz } from './comprobar-interfaz.mjs'
 
 const [modulo, executablePath, url] = process.argv.slice(2)
 if (!url?.startsWith('https://')) throw new Error('Indica la URL HTTPS publicada.')
@@ -20,28 +21,12 @@ try {
   })
   const response = await page.goto(url)
   assert.equal(response.status(), 200)
-  await page.getByRole('button', { name: 'Procesar JSON', exact: true }).click()
-  assert.equal(await page.locator('.node-card').count(), 3)
-  await page.getByRole('button', { name: 'Comparar A / B', exact: true }).click()
-  await page.getByRole('button', { name: 'Generar y comparar árboles' }).click()
-  await page.getByRole('heading', { name: /Equivalencia reconocida/ }).waitFor()
-  assert.equal(await page.locator('[aria-label="Resultado A"] .node-card').count(), 5)
-  assert.equal(await page.locator('[aria-label="Resultado B"] .node-card').count(), 6)
-  await page.getByRole('checkbox', { name: /Comparar las referencias heurísticas/ }).check()
-  const player = page.getByRole('region', { name: 'Sampleos de B', exact: true })
-  await player.getByRole('button', { name: 'Escuchar B', exact: true }).click()
-  await page.locator('[aria-label="Resultado B"] [aria-current="step"]').waitFor()
-  await page.waitForFunction(() => !document.querySelector('[aria-label="Sampleos de B"] button').disabled, null, { timeout: 15000 })
+  const resultado = await comprobarInterfaz(page, async (nombre, fullPage = false) => {
+    await page.screenshot({ path: fileURLToPath(new URL(nombre + '-github-pages.png', output)), fullPage })
+  })
   assert(muestras.size >= 4)
-  await page.locator('.comparison-summary').evaluate(el => window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 24))
-  await page.screenshot({ path: fileURLToPath(new URL('github-pages-comparacion.png', output)) })
-  await page.getByRole('button', { name: 'Álgebra relacional', exact: true }).click()
-  await page.getByRole('button', { name: 'Generar árbol', exact: true }).click()
-  assert.equal(await page.locator('.node-card').count(), 5)
-  await page.setViewportSize({ width: 390, height: 844 })
-  assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth))
   assert.deepEqual(errors, [])
-  const report = { fechaUTC: new Date().toISOString(), url, http: 200, json: '3 nodos', algebra: '5 nodos', comparacion: 'A: 5 nodos; B: 6 nodos; equivalencia por reglas', sampleos: [...muestras], reproduccionCompleta: true, movilSinDesbordamiento: true, errors }
+  const report = { fechaUTC: new Date().toISOString(), url, http: 200, ...resultado, sampleos: [...muestras], errors }
   await fs.writeFile(new URL('verificacion-github-pages.json', output), JSON.stringify(report, null, 2) + '\n')
   console.log(JSON.stringify(report, null, 2))
 } finally { await browser.close() }

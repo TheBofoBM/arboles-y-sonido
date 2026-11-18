@@ -8,11 +8,12 @@ export const MUESTRAS = Object.freeze(Object.fromEntries([
 })])))
 
 /** Un fragmento melódico por visita; pulso fijo y cola completa de la última muestra. */
-export function crearSecuenciaSampleos(documento, orden = 'postorden') {
+export function crearSecuenciaSampleos(documento, orden = 'niveles') {
   const resultado = construirArbol(documento)
-  if (!['preorden', 'postorden'].includes(orden)) throw new TypeError('Recorrido no soportado.')
+  if (!['niveles', 'preorden', 'postorden'].includes(orden)) throw new TypeError('Recorrido no soportado.')
   const indice = new Map(resultado.nodos.map(n => [n.id, n]))
-  const eventos = resultado.recorridos[orden].map((id, i) => {
+  const visitas = orden === 'niveles' ? [...resultado.nodos].sort((a, b) => a.profundidad - b.profundidad || a.posicion - b.posicion).map(n => n.id) : resultado.recorridos[orden]
+  const eventos = visitas.map((id, i) => {
     const nodo = indice.get(id), muestra = MUESTRAS[nodo.tipo]
     if (!muestra) throw new TypeError(`Falta una muestra para ${nodo.tipo}.`)
     return { nodoId: id, tipo: nodo.tipo, muestraId: muestra.id, inicio: i, duracion: muestra.duracion }

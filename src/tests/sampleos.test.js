@@ -7,18 +7,26 @@ import { OPERADORES } from '../modules/tree/operators.js'
 import { EJEMPLOS_ARBOL } from '../data/examples/treeExamples.js'
 import { analizarAlgebra } from '../modules/tree/algebra.js'
 import { optimizarArbol } from '../modules/tree/heuristics.js'
+import { construirArbol } from '../modules/tree/treeLoader.js'
 import original from '../data/examples/biblioteca.algebra.txt?raw'
 import filtrada from '../data/examples/biblioteca-filtrada.algebra.txt?raw'
 
 describe('Secuencia de sampleos y banco grabado', () => {
   it.each(EJEMPLOS_ARBOL.map(e => [e.nombre, e.documento]))('cubre el recorrido completo de %s', (_, arbol) => {
-    for (const orden of ['preorden', 'postorden']) {
+    for (const orden of ['niveles', 'preorden', 'postorden']) {
       const plan = crearSecuenciaSampleos(arbol, orden)
       expect(plan.eventos.length).toBe(new Set(plan.eventos.map(e => e.nodoId)).size)
       expect(plan.duracion).toBe(plan.eventos.length + 0.5)
       expect(plan.eventos.every((e,i) => e.inicio === i && e.duracion === 1.5)).toBe(true)
       expect(plan.eventos.every(e => Object.values(MUESTRAS).some(m => m.id === e.muestraId))).toBe(true)
     }
+  })
+  it.each(EJEMPLOS_ARBOL.map(e => [e.nombre, e.documento]))('por defecto recorre %s por filas de arriba abajo y de izquierda a derecha', (_, arbol) => {
+    const resultado = construirArbol(arbol)
+    const esperados = [...resultado.nodos].sort((a, b) => a.profundidad - b.profundidad || a.posicion - b.posicion)
+    const eventos = crearSecuenciaSampleos(arbol).eventos
+    expect(eventos.map(e => e.nodoId)).toEqual(esperados.map(n => n.id))
+    expect(eventos[0].nodoId).toBe(resultado.raizId)
   })
   it('asigna una muestra a cada operador y verifica PCM, duración, picos y extremos reales', () => {
     expect(Object.keys(MUESTRAS)).toEqual(Object.keys(OPERADORES))

@@ -6,7 +6,7 @@ import TreeReader from './components/trees/TreeReader.vue'
 const SqlReader = defineAsyncComponent(() => import('./components/sql/SqlReader.vue'))
 const AlgebraReader = defineAsyncComponent(() => import('./components/trees/AlgebraReader.vue'))
 const TreeComparison = defineAsyncComponent(() => import('./components/comparison/TreeComparison.vue'))
-const modoEntrada = ref('json')
+const modoEntrada = ref('algebra')
 const transferenciaJSON = shallowRef(null)
 const comparacion = shallowRef(null)
 function compararVersiones(par) { comparacion.value = { ...par }; modoEntrada.value = 'comparar' }
@@ -45,7 +45,7 @@ function recibirArbol(arbol) {
 
     <footer class="site-footer">
       <p>Formación en bases de datos · Prototipo académico</p>
-      <p>Árboles lógicos · Reglas heurísticas · Sampleos · Comparación A / B.</p>
+      <p>Explora, transforma y escucha.</p>
     </footer>
   </div>
 </template>

@@ -1,14 +1,18 @@
 {
-  "fechaUTC": "2026-11-18T15:29:41.241Z",
+  "fechaUTC": "2026-11-18T16:50:29.993Z",
   "modo": "dev",
+  "subruta": "/",
   "checks": [
-    "JSON existente: generación y resultado de 3 nodos",
-    "SQL de biblioteca: 3 pasos, 6 nodos y recuperación con deshacer",
-    "Transferencia de original/transformado a comparación A/B",
-    "WAV decodificados en Chrome; A se detiene al iniciar B; B termina el recorrido de 6 nodos",
-    "Álgebra: generar árbol, error legible y retirada del resultado obsoleto",
-    "Comparación: edición invalida resultados y A no modifica B",
-    "Móvil 390px: sin desbordamiento horizontal"
+    "Inicio con árbol de biblioteca visible, cuatro colores de operador y detalles técnicos cerrados",
+    "Audio real en Chrome: cinco nodos resaltados, profundidades 0,1,2,3,3 y final completo",
+    "Zoom, ajuste, detalle del predicado completo y selección de nodos por teclado",
+    "Entrada JSON conservada: genera diagrama de tres nodos",
+    "SQL y reglas heurísticas: tres pasos, seis nodos y deshacer",
+    "Transferencia del original y la transformación a comparación A/B",
+    "Dos diagramas A/B; originales y transformados; B detiene A y termina sus seis nodos",
+    "Álgebra inválida: mensaje legible y retirada del diagrama anterior",
+    "Comparación: editar invalida los diagramas y modificar A conserva B",
+    "Móvil de 390 px: árboles y comparación sin desbordamiento de página"
   ],
   "errors": [],
   "puertoCerrado": true

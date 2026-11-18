@@ -7,8 +7,8 @@ import { construirArbol } from '../../modules/tree/treeLoader.js'
 import { expresarArbol } from '../../modules/tree/algebra.js'
 const props = defineProps({ resultado: { type: Object, required: true } })
 defineEmits(['comparar'])
-const actual = shallowRef(props.resultado), pasos = shallowRef([]), aviso = ref(''), error = ref(''), nodoActivo = ref(null)
-watch(() => props.resultado, value => { actual.value = value; pasos.value = []; aviso.value = ''; error.value = ''; nodoActivo.value = null })
+const actual = shallowRef(props.resultado), pasos = shallowRef([]), aviso = ref(''), error = ref(''), nodoActivo = ref(null), visitados = ref([])
+watch(() => props.resultado, value => { actual.value = value; pasos.value = []; aviso.value = ''; error.value = ''; nodoActivo.value = null; visitados.value = [] })
 const formula = computed(() => expresarArbol(actual.value.arbol))
 function transformar(todos = false) {
   error.value = ''
@@ -31,23 +31,21 @@ function deshacer() {
 </script>
 
 <template>
+  <section class="listening-workspace" aria-label="Explorador visual del árbol">
+    <div class="workspace-heading"><div><p class="eyebrow">UN ÁRBOL, UN RECORRIDO</p><h2>Escucha lo que ves.</h2></div><button class="button-secondary" type="button" @click="$emit('comparar', { a: resultado.arbol, b: actual.arbol })">Comparar original y actual <span aria-hidden="true">↗</span></button></div>
+    <SamplePlayer :arbol="actual.arbol" nombre="árbol actual" @nodo-activo="nodoActivo = $event" @visitados="visitados = $event" />
+    <TreeResult :resultado="actual" :nodo-activo="nodoActivo" :visitados="visitados" />
+  </section>
   <section class="heuristic-panel" aria-label="Transformaciones heurísticas">
-    <h2>Explorar transformaciones</h2>
-    <p class="field-help">Separar AND y bajar filtros locales por INNER JOIN. Cada paso conserva sus predicados; las reglas comprueban sus precondiciones.</p>
-    <pre class="formula-output" tabindex="0">{{ formula }}</pre>
+    <div><p class="eyebrow">EXPERIMENTA</p><h3>Transforma el árbol y vuelve a escucharlo.</h3></div>
     <div class="editor-actions">
       <button class="button-primary" type="button" @click="transformar(false)">Aplicar siguiente regla</button>
       <button class="button-secondary" type="button" @click="transformar(true)">Aplicar reglas disponibles</button>
       <button class="button-secondary" type="button" :disabled="!pasos.length" @click="deshacer">Deshacer paso</button>
-      <button class="button-secondary" type="button" @click="$emit('comparar', { a: resultado.arbol, b: actual.arbol })">Comparar original y actual</button>
     </div>
     <p v-if="aviso" class="reader-status" role="status">{{ aviso }}</p>
     <p v-if="error" role="alert" class="error-text">{{ error }}</p>
-    <details v-if="pasos.length" class="result-details">
-      <summary>Historial: {{ pasos.length }} transformaciones</summary>
-      <ol class="step-list"><li v-for="(paso, i) in pasos" :key="i"><strong>{{ paso.codigo }}</strong> · {{ paso.descripcion }}<details><summary>Antes y después</summary><pre>{{ expresarArbol(paso.antes) }}</pre><pre>{{ expresarArbol(paso.despues) }}</pre></details></li></ol>
-    </details>
+    <details v-if="pasos.length" class="technical-details"><summary>Historial: {{ pasos.length }} transformaciones</summary><ol class="step-list"><li v-for="(paso, i) in pasos" :key="i"><strong>{{ paso.codigo }}</strong> · {{ paso.descripcion }}<details><summary>Antes y después</summary><pre>{{ expresarArbol(paso.antes) }}</pre><pre>{{ expresarArbol(paso.despues) }}</pre></details></li></ol></details>
+    <details class="technical-details"><summary>Ver fórmula</summary><pre class="formula-output">{{ formula }}</pre></details>
   </section>
-  <SamplePlayer :arbol="actual.arbol" nombre="árbol actual" @nodo-activo="nodoActivo = $event" />
-  <TreeResult :resultado="actual" :nodo-activo="nodoActivo" />
 </template>

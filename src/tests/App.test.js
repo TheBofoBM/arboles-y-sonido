@@ -4,19 +4,22 @@ import { describe, expect, it } from 'vitest'
 import App from '../App.vue'
 
 describe('Página inicial', () => {
-  it('renderiza la aplicación con el lector JSON y el alcance del modelo lógico', async () => {
+  it('abre el ejemplo visual con escucha y conserva las entradas y el alcance lógico', async () => {
     const html = await renderToString(createSSRApp(App))
 
     expect(html).toContain('href="#contenido"')
     expect(html).toContain('<main id="contenido"')
     expect(html).toContain('id="project-title"')
     expect(html).toContain('Método computacional para codificar árboles de consulta relacional')
-    expect(html).toContain('id="tree-json"')
-    expect(html).toContain('Procesar JSON')
+    expect(html).toContain('id="algebra-input"')
+    expect(html).toContain('Mira el árbol.')
+    expect(html.match(/class="tree-node node-card/g)).toHaveLength(5)
+    expect(html).toContain('De arriba hacia abajo')
+    expect(html).not.toContain('<table')
     expect(html).toContain('planes físicos')
     expect(html).toContain('Tipo de entrada')
     expect(html).toContain('>SQL</button>')
-    expect(html).toContain('Reglas heurísticas')
+    expect(html).toContain('Aplicar siguiente regla')
     expect(html).toContain('Sampleos')
     expect(html).toContain('Comparar A / B')
   })

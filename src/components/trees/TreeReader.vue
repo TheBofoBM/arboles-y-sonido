@@ -20,6 +20,7 @@ watch(() => props.entrada, entrada => {
       <div><p class="eyebrow">Lectura y construcción</p><h2 id="reader-title">Procesar un árbol desde JSON</h2></div>
       <span class="status">Modelo lógico</span>
     </div>
+    <details class="entry-editor" :open="!resultado"><summary><span class="entry-icon" aria-hidden="true">{ }</span> Editar estructura JSON</summary>
     <form class="reader-form" @submit.prevent="procesar">
       <div class="example-controls">
         <div class="example-select">
@@ -45,6 +46,7 @@ watch(() => props.entrada, entrada => {
         <button class="button-secondary" type="button" @click="limpiar">Limpiar</button>
       </div>
     </form>
+    </details>
     <div v-if="errores.length" class="validation-errors" role="alert">
       <h3>No se pudo construir el árbol</h3>
       <ul>

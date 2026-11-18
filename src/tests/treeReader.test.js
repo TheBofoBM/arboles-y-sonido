@@ -54,18 +54,18 @@ describe('Estado del lector JSON', () => {
   }))
 })
 
-describe('Salida estructurada', () => {
-  it('renderiza el resumen, parámetros, metadatos y recorridos del árbol de ventas', async () => {
+describe('Salida visual', () => {
+  it('dibuja ventas completo y deja el JSON cerrado sin tablas de resultados', async () => {
     const resultado = construirArbol(EJEMPLOS_ARBOL.find(ejemplo => ejemplo.id === 'ventas').documento)
     const html = await renderToString(createSSRApp({ render: () => h(TreeResult, { resultado }) }))
-    expect(html).toContain('<dt>Nodos</dt><dd>9</dd>')
-    expect(html).toContain('<dt>Profundidad máxima</dt><dd>5</dd>')
+    expect(html.match(/class="tree-node node-card/g)).toHaveLength(9)
+    expect(html.match(/class="tree-edge"/g)).toHaveLength(8)
     expect(html).toContain('PROYECCION_EXTENDIDA')
     expect(html).toContain('Detalle.cantidad * Detalle.precio_unitario AS subtotal')
-    expect(html).toContain('Preorden')
-    expect(html).toContain('Postorden')
-    expect(html).toContain('Relaciones padre-hijo')
-    expect(html).toContain('JSON normalizado')
+    expect(html).toContain('role="button" tabindex="0"')
+    expect(html).toContain('<details class="technical-details"><summary>Ver JSON del árbol</summary>')
+    expect(html).not.toContain('<table')
+    expect(html).not.toContain('<dt>Nodos')
   })
 
   it('escapa etiquetas y parámetros introducidos por el usuario', async () => {

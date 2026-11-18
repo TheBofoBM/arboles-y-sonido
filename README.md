@@ -9,8 +9,10 @@ Funciona directamente en el navegador, sin ChatGPT ni instalación local.
 
 El proyecto permite pegar JSON o una consulta de un subconjunto SQL, validarlos
 y construir un árbol lógico en memoria.
-Incluye una vista estructurada con operadores y parámetros, relaciones
-padre-hijo, profundidad, cantidad de nodos y recorridos preorden y postorden.
+Incluye un diagrama interactivo con colores por operador y sampleos que iluminan
+los nodos de arriba hacia abajo. La pantalla inicial muestra la biblioteca lista
+para escuchar. Los parámetros completos aparecen al seleccionar un nodo; el
+JSON y los detalles técnicos quedan plegados.
 Acepta el formato anidado original y una lista de nodos con referencias por id.
 La entrada SQL admite SELECT de columnas, FROM, alias de tablas, INNER JOIN con
 ON, WHERE con comparaciones y AND, y DISTINCT. También admite expresiones de
@@ -30,9 +32,12 @@ los árboles A y B de la figura 2.3:
 
 La entrada de fórmulas, las reglas, la comparación A/B y la reproducción se
 explican en [Heurísticas, sampleos y comparación](docs/heuristicas-sampleos-comparacion.md).
-Para probar el recorrido completo, abrir **Comparar A / B**, cargar el par de
-biblioteca y pulsar **Generar y comparar árboles**. Se pueden escuchar ambos
-originales o sus referencias heurísticas, con preorden o postorden.
+Para probar dos árboles, abrir **Comparar A / B**: el par de biblioteca aparece
+listo para escuchar. **Editar consultas A y B** permite introducir otras entradas.
+Se pueden escuchar los originales o activar **Ver árboles transformados**.
+El recorrido predeterminado es por niveles, de arriba abajo y de izquierda a
+derecha; preorden y postorden están en **Cambiar recorrido**. Véanse los
+[detalles de la interfaz visual y su verificación](docs/interfaz-visual-recorrido-2026-11-18.md).
 
 El prototipo también puede abrirse en Chrome/Edge o publicarse como sitio
 estático en GitHub Pages. Véanse las

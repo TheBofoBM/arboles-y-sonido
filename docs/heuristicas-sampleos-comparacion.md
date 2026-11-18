@@ -10,15 +10,17 @@ de trabajo.
 
 Ejecutar `npm ci` si faltan dependencias y `npm run dev`.
 
-1. Elegir JSON, SQL o Álgebra relacional y generar el árbol.
+1. Escuchar el ejemplo inicial o editar una entrada JSON, SQL o de álgebra y generar el árbol.
 2. Aplicar una regla o las reglas disponibles. Deshacer permite volver al paso
    anterior; el historial conserva los árboles antes y después de cada regla.
-3. Escuchar el árbol actual con preorden o postorden. El nodo en reproducción
-   se resalta; Detener cancela la secuencia.
+3. Escuchar el árbol por niveles: raíz primero, luego cada fila de izquierda a
+   derecha. El nodo activo toma el color intenso de su operador; los visitados
+   conservan su borde. **Cambiar recorrido** permite elegir preorden o postorden.
+   Detener cancela la secuencia.
 4. Pulsar **Comparar original y actual** para llevar ambos árboles a A/B.
 5. En **Comparar A / B** se pueden introducir dos entradas independientes y
    mezclar SQL, álgebra o JSON. El par de biblioteca está precargado.
-6. Escuchar los originales o activar **Comparar las referencias heurísticas**.
+6. Escuchar los originales o activar **Ver árboles transformados**.
    Esa opción transforma ambos con las mismas reglas antes de reproducirlos.
 
 Las entradas editadas invalidan sus resultados anteriores. Solo hay una
@@ -87,7 +89,9 @@ por sí mismo una mejora de ejecución.
 
 ## Comparación A/B y equivalencia acotada
 
-Se comparan cantidades, profundidad, operadores, parámetros y recorridos.
+El módulo conserva cantidades, profundidad, operadores, parámetros y recorridos;
+la interfaz prioriza los dos diagramas y sus controles de escucha, sin tablas de
+métricas. Los detalles de equivalencia y el JSON se consultan al desplegarlos.
 La firma lógica ignora IDs y etiquetas; conserva relaciones, alias, orden de
 columnas, DISTINCT, condiciones y orden de las entradas del JOIN. Las cadenas
 de selecciones puras se comparan como conjunciones ordenadas por firma.
@@ -153,6 +157,8 @@ siguen requiriendo evaluación con oyentes.
 | `src/modules/sonification/samplePlan.js` | Banco y programación del recorrido. |
 | `src/services/samplePlayer.js` | Carga local, caché, reproducción, exclusión A/B y cancelación. |
 | `src/components/trees/TreeWorkbench.vue` | Transformar, deshacer y comparar versiones. |
+| `src/modules/tree/treeLayout.js` | Distribución del diagrama, colores y descripciones. |
+| `src/components/trees/TreeDiagram.vue` | Diagrama SVG, resaltado, zoom y selección. |
 | `src/components/comparison/TreeComparison.vue` | Entradas independientes y resultados A/B. |
 | `src/components/audio/SamplePlayer.vue` | Controles de reproducción y atribución. |
 
@@ -161,6 +167,8 @@ siguen requiriendo evaluación con oyentes.
 Las verificaciones de esta ampliación se registran en
 [verificación de la ampliación](verificacion-ampliacion-2026-11-18.md).
 Las instrucciones manuales y limitaciones están en ese registro.
+La revisión visual posterior está registrada en
+[interfaz visual y recorrido](interfaz-visual-recorrido-2026-11-18.md).
 
 Fuentes técnicas: [semántica de INNER JOIN y WHERE, PostgreSQL](https://www.postgresql.org/docs/18/queries-table-expressions.html),
 [AudioBufferSourceNode, MDN](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode),
