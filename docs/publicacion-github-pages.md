@@ -3,6 +3,19 @@
 La aplicación funciona en el navegador. ChatGPT no es necesario para abrirla,
 procesar entradas, comparar árboles o escuchar los sampleos.
 
+Publicado el 18 de noviembre de 2026:
+
+- [Abrir el prototipo](https://thebofobm.github.io/arboles-y-sonido/).
+- [Repositorio de código](https://github.com/TheBofoBM/arboles-y-sonido).
+- [Primera publicación satisfactoria](https://github.com/TheBofoBM/arboles-y-sonido/actions/runs/44343569049).
+
+Se verificó la URL pública con Chrome: HTTP 200, entradas JSON y álgebra,
+comparación A/B, carga de cuatro WAV usados por el ejemplo, reproducción
+completa y vista móvil sin desbordamiento. No hubo errores de página ni de
+recursos en esa sesión. La evidencia está en
+[verificacion-github-pages.json](evidencias/verificacion-github-pages.json) y
+[captura de la comparación publicada](evidencias/github-pages-comparacion.png).
+
 ## En la laptop
 
 Abrir PowerShell en la carpeta del proyecto y ejecutar:
@@ -36,7 +49,7 @@ La configuración de Vite lee `VITE_BASE_PATH`. El flujo obtiene esa ruta de
 importaciones diferidas y WAV al subdirectorio del repositorio. Localmente,
 sin esa variable, se conserva `/`.
 
-Pasos pendientes en GitHub:
+Configuración aplicada y pasos para repetirla en otro repositorio:
 
 1. Elegir o crear el repositorio de destino.
 2. Subir el proyecto con `src/`, `public/`, `.github/`, `package.json`,
@@ -50,8 +63,9 @@ Pasos pendientes en GitHub:
    **Comparar A / B**, las fórmulas y **Escuchar A/B**.
 
 La dirección habitual de un proyecto tiene la forma
-`https://USUARIO.github.io/REPOSITORIO/`. No se ha asignado una URL pública a
-este proyecto todavía: falta confirmar su repositorio y realizar el despliegue.
+`https://USUARIO.github.io/REPOSITORIO/`. En este caso el usuario es TheBofoBM
+y el repositorio es arboles-y-sonido. GitHub Actions publica los cambios que
+se suban a la rama predeterminada; la dirección se mantiene.
 
 GitHub Pages admite repositorios públicos con GitHub Free; la disponibilidad
 para repositorios privados depende del plan. Los sampleos se incluyen en el

@@ -1,0 +1,17 @@
+{
+  "fechaUTC": "2026-11-18T16:09:05.362Z",
+  "url": "https://thebofobm.github.io/arboles-y-sonido/",
+  "http": 200,
+  "json": "3 nodos",
+  "algebra": "5 nodos",
+  "comparacion": "A: 5 nodos; B: 6 nodos; equivalencia por reglas",
+  "sampleos": [
+    "https://thebofobm.github.io/arboles-y-sonido/assets/join-BNpMnrlf.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/proyeccion-LJK7ExJL.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/seleccion-7yZXRpL1.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/relacion-C227TTBQ.wav"
+  ],
+  "reproduccionCompleta": true,
+  "movilSinDesbordamiento": true,
+  "errors": []
+}

@@ -4,6 +4,9 @@ Prototipo de la tesis **«Método computacional para codificar árboles de consu
 relacional mediante estructuras sonoras como apoyo a la formación en bases de
 datos»**.
 
+**Abrir el prototipo:** [Árboles y sonido en GitHub Pages](https://thebofobm.github.io/arboles-y-sonido/).
+Funciona directamente en el navegador, sin ChatGPT ni instalación local.
+
 El proyecto permite pegar JSON o una consulta de un subconjunto SQL, validarlos
 y construir un árbol lógico en memoria.
 Incluye una vista estructurada con operadores y parámetros, relaciones
