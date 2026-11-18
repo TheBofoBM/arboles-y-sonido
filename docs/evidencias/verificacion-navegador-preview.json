@@ -1,0 +1,15 @@
+{
+  "fechaUTC": "2026-11-18T15:37:17.248Z",
+  "modo": "preview",
+  "checks": [
+    "JSON existente: generación y resultado de 3 nodos",
+    "SQL de biblioteca: 3 pasos, 6 nodos y recuperación con deshacer",
+    "Transferencia de original/transformado a comparación A/B",
+    "WAV decodificados en Chrome; A se detiene al iniciar B; B termina el recorrido de 6 nodos",
+    "Álgebra: generar árbol, error legible y retirada del resultado obsoleto",
+    "Comparación: edición invalida resultados y A no modifica B",
+    "Móvil 390px: sin desbordamiento horizontal"
+  ],
+  "errors": [],
+  "puertoCerrado": true
+}

@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "raiz": {
+    "id": "proyeccion-libro",
+    "tipo": "PROYECCION",
+    "etiqueta": "Títulos de libros posteriores a 2020",
+    "parametros": { "atributos": ["Libro.titulo"] },
+    "hijos": [
+      {
+        "id": "seleccion-libro",
+        "tipo": "SELECCION",
+        "etiqueta": "Libros publicados después de 2020",
+        "parametros": { "predicado": "Libro.anio > 2020" },
+        "hijos": [
+          {
+            "id": "libro",
+            "tipo": "RELACION",
+            "etiqueta": "Libro",
+            "parametros": { "nombre": "Libro" },
+            "hijos": []
+          }
+        ]
+      }
+    ]
+  }
+}

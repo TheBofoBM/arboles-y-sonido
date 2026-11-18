@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "raiz": {
+    "id": "proyeccion-libro-autor",
+    "tipo": "PROYECCION",
+    "etiqueta": "Títulos y nombres de autores",
+    "parametros": { "atributos": ["Libro.titulo", "Autor.nombre"] },
+    "hijos": [
+      {
+        "id": "seleccion-anio-pais",
+        "tipo": "SELECCION",
+        "etiqueta": "Año posterior a 2020 y autor de México",
+        "parametros": { "predicado": "Libro.anio > 2020 AND Autor.pais = 'México'" },
+        "hijos": [
+          {
+            "id": "join-libro-autor",
+            "tipo": "JOIN",
+            "etiqueta": "Libro con su autor",
+            "parametros": { "condicion": "Libro.id_autor = Autor.id_autor" },
+            "hijos": [
+              {
+                "id": "libro",
+                "tipo": "RELACION",
+                "etiqueta": "Libro",
+                "parametros": { "nombre": "Libro" },
+                "hijos": []
+              },
+              {
+                "id": "autor",
+                "tipo": "RELACION",
+                "etiqueta": "Autor",
+                "parametros": { "nombre": "Autor" },
+                "hijos": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

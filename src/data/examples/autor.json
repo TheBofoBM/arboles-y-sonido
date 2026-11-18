@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "raiz": {
+    "id": "autor",
+    "tipo": "RELACION",
+    "etiqueta": "Autor",
+    "parametros": { "nombre": "Autor" },
+    "hijos": []
+  }
+}

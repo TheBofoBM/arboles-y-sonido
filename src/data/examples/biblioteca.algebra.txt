@@ -1,0 +1,5 @@
+PI[L.titulo, A.nombre](
+  SIGMA[L.anio > 2020 AND A.pais = 'México'](
+    JOIN[L.id_autor = A.id_autor](Libro AS L, Autor AS A)
+  )
+)

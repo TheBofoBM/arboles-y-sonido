@@ -1,0 +1,74 @@
+{
+  "fuente": "Salamander Grand Piano, Alexander Holm",
+  "licencia": "CC BY 3.0",
+  "origen": "https://tonejs.github.io/audio/salamander/C4.mp3",
+  "sha256Fuente": "689eaa4c2fd7f29a2cc0e386eec462156d523a87d701269e5e2458e66056f4f6",
+  "adaptacion": "Remuestreo lineal de piano grabado; cuatro notas en Do pentatónica, ataques cada 0.25 s, envolventes y normalización. Sin osciladores.",
+  "muestras": [
+    {
+      "archivo": "relacion.wav",
+      "semitonosDesdeC4": [
+        0,
+        4,
+        7,
+        4
+      ],
+      "duracion": 1.5,
+      "sampleRate": 24000,
+      "picoMaximo": 0.65,
+      "sha256": "d5e8eb0748b426e24ece5d810c33eec63900c122635fc94bc20f152bd6600dad"
+    },
+    {
+      "archivo": "seleccion.wav",
+      "semitonosDesdeC4": [
+        4,
+        2,
+        0,
+        2
+      ],
+      "duracion": 1.5,
+      "sampleRate": 24000,
+      "picoMaximo": 0.65,
+      "sha256": "13a570f68c2dbd184de02b0745b8f56d7a466e00886a1c126d4e6240f103303a"
+    },
+    {
+      "archivo": "proyeccion.wav",
+      "semitonosDesdeC4": [
+        7,
+        9,
+        7,
+        0
+      ],
+      "duracion": 1.5,
+      "sampleRate": 24000,
+      "picoMaximo": 0.65,
+      "sha256": "96b34988bb530b0a83e862a3bbe0ea0dee506e97a73f03384456607031801b1e"
+    },
+    {
+      "archivo": "proyeccion-extendida.wav",
+      "semitonosDesdeC4": [
+        9,
+        7,
+        4,
+        2
+      ],
+      "duracion": 1.5,
+      "sampleRate": 24000,
+      "picoMaximo": 0.65,
+      "sha256": "e66561dec7ae4ec0d1d4913b4715e6607561def8531a5e1824a3243e71d5a6c2"
+    },
+    {
+      "archivo": "join.wav",
+      "semitonosDesdeC4": [
+        0,
+        7,
+        4,
+        0
+      ],
+      "duracion": 1.5,
+      "sampleRate": 24000,
+      "picoMaximo": 0.65,
+      "sha256": "badc8947d10895c407bb185d63cb46f586c7da057502ff5872a78df17c1562c8"
+    }
+  ]
+}
