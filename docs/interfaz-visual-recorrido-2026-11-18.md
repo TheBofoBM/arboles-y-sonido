@@ -87,6 +87,29 @@ Evidencias reales de la compilación de producción:
 - [Comparación mientras suena B](evidencias/comparacion-visual-preview-subruta.png).
 - [Árbol en móvil](evidencias/arbol-movil-preview-subruta.png).
 
+## Publicación comprobada
+
+El cambio `46edbb147d1d7fc135e0ee9948c8c48198a1b35c` fue publicado mediante
+[GitHub Actions, ejecución 44352577418](https://github.com/TheBofoBM/arboles-y-sonido/actions/runs/44352577418).
+Instalación, pruebas, compilación y despliegue concluyeron con `success`.
+
+Se ejecutó también, contra el sitio público:
+
+```text
+node scripts/verificar-publicacion.mjs <playwright/index.mjs> <chrome.exe> https://thebofobm.github.io/arboles-y-sonido/
+```
+
+Resultado del 18 de noviembre a las 16:55:10 UTC: HTTP 200, las diez
+comprobaciones de interfaz aprobadas, cuatro WAV solicitados correctamente y
+ningún error de página, consola ni recursos. El informe registra los cinco
+IDs iluminados con profundidades 0,1,2,3,3. No quedaron servidores escuchando
+en los puertos locales 4183 y 5183.
+
+- [Informe del sitio público](evidencias/verificacion-github-pages.json).
+- [Captura durante la escucha](evidencias/arbol-escuchando-github-pages.png).
+- [Comparación A/B publicada](evidencias/comparacion-visual-github-pages.png).
+- [Árbol publicado en móvil](evidencias/arbol-movil-github-pages.png).
+
 ## Límites y revisión manual
 
 El árbol sigue siendo lógico: no se ejecuta SQL, no se muestran filas de una

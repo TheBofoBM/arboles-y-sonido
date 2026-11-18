@@ -1,17 +1,46 @@
 {
-  "fechaUTC": "2026-11-18T16:09:05.362Z",
+  "fechaUTC": "2026-11-18T16:55:10.264Z",
   "url": "https://thebofobm.github.io/arboles-y-sonido/",
   "http": 200,
-  "json": "3 nodos",
-  "algebra": "5 nodos",
-  "comparacion": "A: 5 nodos; B: 6 nodos; equivalencia por reglas",
-  "sampleos": [
-    "https://thebofobm.github.io/arboles-y-sonido/assets/join-BNpMnrlf.wav",
-    "https://thebofobm.github.io/arboles-y-sonido/assets/proyeccion-LJK7ExJL.wav",
-    "https://thebofobm.github.io/arboles-y-sonido/assets/seleccion-7yZXRpL1.wav",
-    "https://thebofobm.github.io/arboles-y-sonido/assets/relacion-C227TTBQ.wav"
+  "checks": [
+    "Inicio con árbol de biblioteca visible, cuatro colores de operador y detalles técnicos cerrados",
+    "Audio real en Chrome: cinco nodos resaltados, profundidades 0,1,2,3,3 y final completo",
+    "Zoom, ajuste, detalle del predicado completo y selección de nodos por teclado",
+    "Entrada JSON conservada: genera diagrama de tres nodos",
+    "SQL y reglas heurísticas: tres pasos, seis nodos y deshacer",
+    "Transferencia del original y la transformación a comparación A/B",
+    "Dos diagramas A/B; originales y transformados; B detiene A y termina sus seis nodos",
+    "Álgebra inválida: mensaje legible y retirada del diagrama anterior",
+    "Comparación: editar invalida los diagramas y modificar A conserva B",
+    "Móvil de 390 px: árboles y comparación sin desbordamiento de página"
   ],
-  "reproduccionCompleta": true,
-  "movilSinDesbordamiento": true,
+  "recorrido": [
+    {
+      "id": "algebra-1",
+      "profundidad": 0
+    },
+    {
+      "id": "algebra-2",
+      "profundidad": 1
+    },
+    {
+      "id": "algebra-3",
+      "profundidad": 2
+    },
+    {
+      "id": "algebra-4",
+      "profundidad": 3
+    },
+    {
+      "id": "algebra-5",
+      "profundidad": 3
+    }
+  ],
+  "sampleos": [
+    "https://thebofobm.github.io/arboles-y-sonido/assets/proyeccion-LJK7ExJL.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/join-BNpMnrlf.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/relacion-C227TTBQ.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/seleccion-7yZXRpL1.wav"
+  ],
   "errors": []
 }

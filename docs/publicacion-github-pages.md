@@ -14,7 +14,9 @@ comparación A/B, carga de cuatro WAV usados por el ejemplo, reproducción
 completa y vista móvil sin desbordamiento. No hubo errores de página ni de
 recursos en esa sesión. La evidencia está en
 [verificacion-github-pages.json](evidencias/verificacion-github-pages.json) y
-[captura de la comparación publicada](evidencias/github-pages-comparacion.png).
+[captura de la comparación publicada](evidencias/comparacion-visual-github-pages.png).
+La actualización centrada en el árbol, sus colores y el recorrido por niveles
+se documenta en [interfaz visual y verificación](interfaz-visual-recorrido-2026-11-18.md).
 
 ## En la laptop
 
