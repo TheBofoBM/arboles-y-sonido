@@ -1,14 +1,17 @@
 {
-  "fechaUTC": "2026-11-18T16:55:10.264Z",
+  "fechaUTC": "2026-11-24T00:36:38.381Z",
   "url": "https://thebofobm.github.io/arboles-y-sonido/",
   "http": 200,
   "checks": [
     "Inicio con árbol de biblioteca visible, cuatro colores de operador y detalles técnicos cerrados",
-    "Audio real en Chrome: cinco nodos resaltados, profundidades 0,1,2,3,3 y final completo",
+    "Audio real en Chrome: postorden desde las relaciones, profundidades 3,3,2,1,0 y final completo con base",
+    "Registro editable: primer nodo D4 al elegir raíz G4; detener retira el resaltado; restablecer recupera G5",
+    "Álgebra a SQL de referencia editable: cambiar el año actualiza el árbol y recuperar el SQL conserva el ejemplo",
     "Zoom, ajuste, detalle del predicado completo y selección de nodos por teclado",
     "Entrada JSON conservada: genera diagrama de tres nodos",
     "SQL y reglas heurísticas: tres pasos, seis nodos y deshacer",
     "Transferencia del original y la transformación a comparación A/B",
+    "La comparación A/B comparte el mismo mapeo de registro y base",
     "Dos diagramas A/B; originales y transformados; B detiene A y termina sus seis nodos",
     "Álgebra inválida: mensaje legible y retirada del diagrama anterior",
     "Comparación: editar invalida los diagramas y modificar A conserva B",
@@ -16,31 +19,38 @@
   ],
   "recorrido": [
     {
-      "id": "algebra-1",
-      "profundidad": 0
-    },
-    {
-      "id": "algebra-2",
-      "profundidad": 1
-    },
-    {
-      "id": "algebra-3",
-      "profundidad": 2
-    },
-    {
       "id": "algebra-4",
       "profundidad": 3
     },
     {
       "id": "algebra-5",
       "profundidad": 3
+    },
+    {
+      "id": "algebra-3",
+      "profundidad": 2
+    },
+    {
+      "id": "algebra-2",
+      "profundidad": 1
+    },
+    {
+      "id": "algebra-1",
+      "profundidad": 0
     }
   ],
   "sampleos": [
-    "https://thebofobm.github.io/arboles-y-sonido/assets/proyeccion-LJK7ExJL.wav",
-    "https://thebofobm.github.io/arboles-y-sonido/assets/join-BNpMnrlf.wav",
-    "https://thebofobm.github.io/arboles-y-sonido/assets/relacion-C227TTBQ.wav",
-    "https://thebofobm.github.io/arboles-y-sonido/assets/seleccion-7yZXRpL1.wav"
+    "https://thebofobm.github.io/arboles-y-sonido/assets/proyeccion-10-D2DMkYoO.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/relacion-7-DiJ3kJyZ.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/join-8-Da4_Vi7B.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/seleccion-9-DmwSksDq.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/base-mlhw1e2Y.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/proyeccion-5-CCXZcI-l.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/relacion-2-DoRQse_T.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/seleccion-4-C9Y-ZLjI.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/join-3-BH15VgDv.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/join-9-jlh0HBbi.wav",
+    "https://thebofobm.github.io/arboles-y-sonido/assets/seleccion-8-BTf_07D2.wav"
   ],
   "errors": []
 }

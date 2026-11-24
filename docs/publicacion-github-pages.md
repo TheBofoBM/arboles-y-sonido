@@ -3,13 +3,26 @@
 La aplicación funciona en el navegador. ChatGPT no es necesario para abrirla,
 procesar entradas, comparar árboles o escuchar los sampleos.
 
-Publicado el 18 de noviembre de 2026:
+Actualizado el 23 de noviembre de 2026. La versión pública incorpora lectura
+desde las relaciones en postorden, etiqueta JOIN, banco Aventura orbital con
+base musical y registro por profundidad, ajustes sonoros compartidos y SQL
+de referencia editable. También se subieron la demo y la partitura de JOIN
+al repositorio.
+
+La [publicación de esta actualización](https://github.com/TheBofoBM/arboles-y-sonido/actions/runs/45298341957)
+terminó correctamente para el commit `291644a`. Se aprobaron 350 pruebas y la
+compilación; Chrome verificó la URL pública con trece comprobaciones de
+interfaz, once WAV cargados, reproducción, edición SQL, comparación A/B y
+vista móvil de 390 px, sin errores de página ni recursos. El informe actual
+está en [verificacion-github-pages.json](evidencias/verificacion-github-pages.json).
+
+Publicación inicial del 18 de noviembre de 2026:
 
 - [Abrir el prototipo](https://thebofobm.github.io/arboles-y-sonido/).
 - [Repositorio de código](https://github.com/TheBofoBM/arboles-y-sonido).
 - [Primera publicación satisfactoria](https://github.com/TheBofoBM/arboles-y-sonido/actions/runs/44343569049).
 
-Se verificó la URL pública con Chrome: HTTP 200, entradas JSON y álgebra,
+En aquella versión se verificó la URL pública con Chrome: HTTP 200, entradas JSON y álgebra,
 comparación A/B, carga de cuatro WAV usados por el ejemplo, reproducción
 completa y vista móvil sin desbordamiento. No hubo errores de página ni de
 recursos en esa sesión. La evidencia está en
