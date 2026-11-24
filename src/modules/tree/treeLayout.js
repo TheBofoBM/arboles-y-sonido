@@ -4,7 +4,7 @@ export const ESTILOS_OPERADOR = Object.freeze({
   PROYECCION: { nombre: 'Proyección', simbolo: 'π', color: '#7955d9', fondo: '#f0eaff' },
   PROYECCION_EXTENDIDA: { nombre: 'Proyección extendida', simbolo: 'π+', color: '#d54f86', fondo: '#fff0f6' },
   SELECCION: { nombre: 'Selección', simbolo: 'σ', color: '#c67713', fondo: '#fff4dc' },
-  JOIN: { nombre: 'Reunión', simbolo: '⋈', color: '#3677dc', fondo: '#eaf2ff' },
+  JOIN: { nombre: 'JOIN', simbolo: '⋈', color: '#3677dc', fondo: '#eaf2ff' },
   RELACION: { nombre: 'Relación', simbolo: 'R', color: '#168c83', fondo: '#e4f7f1' },
 })
 

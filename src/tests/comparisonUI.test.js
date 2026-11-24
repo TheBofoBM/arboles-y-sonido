@@ -44,7 +44,7 @@ describe('Comparación e interfaz integrada', () => {
     const workbench = await renderToString(createSSRApp({ render: () => h(TreeWorkbench, { resultado: analizarAlgebra(ejemplo) }) }))
     expect(workbench).toContain('Comparar original y actual')
     expect(workbench).toContain('Aplicar siguiente regla')
-    expect(workbench).toContain('CC BY 3.0')
+    expect(workbench).toContain('CC0 1.0')
     expect(workbench).not.toContain('Oscillator')
   })
 })

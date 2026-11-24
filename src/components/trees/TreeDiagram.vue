@@ -37,7 +37,7 @@ const corto = (value, max = 26) => value.length > max ? value.slice(0, max - 1) 
 <template>
   <div class="tree-diagram">
     <div class="diagram-toolbar">
-      <span class="direction-label"><span aria-hidden="true">↓</span> El sonido sigue los nodos iluminados</span>
+      <span class="direction-label">El sonido sigue los nodos iluminados</span>
       <div class="zoom-controls" aria-label="Ampliación del árbol">
         <button type="button" aria-label="Alejar árbol" @click="zoom(1 / 1.25)">−</button>
         <button type="button" aria-label="Acercar árbol" @click="zoom(1.25)">+</button>

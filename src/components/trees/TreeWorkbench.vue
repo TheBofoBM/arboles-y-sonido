@@ -2,6 +2,7 @@
 import { shallowRef, ref, watch, computed } from 'vue'
 import TreeResult from './TreeResult.vue'
 import SamplePlayer from '../audio/SamplePlayer.vue'
+import SqlReference from '../sql/SqlReference.vue'
 import { aplicarPasoHeuristico, optimizarArbol } from '../../modules/tree/heuristics.js'
 import { construirArbol } from '../../modules/tree/treeLoader.js'
 import { expresarArbol } from '../../modules/tree/algebra.js'
@@ -28,6 +29,10 @@ function deshacer() {
   if (!paso) return
   actual.value = construirArbol(paso.antes); pasos.value = pasos.value.slice(0, -1); aviso.value = ''; error.value = ''
 }
+function actualizarDesdeSQL(resultado) {
+  actual.value = resultado; pasos.value = []; error.value = ''
+  aviso.value = 'Árbol actualizado desde el SQL editado.'
+}
 </script>
 
 <template>
@@ -47,5 +52,6 @@ function deshacer() {
     <p v-if="error" role="alert" class="error-text">{{ error }}</p>
     <details v-if="pasos.length" class="technical-details"><summary>Historial: {{ pasos.length }} transformaciones</summary><ol class="step-list"><li v-for="(paso, i) in pasos" :key="i"><strong>{{ paso.codigo }}</strong> · {{ paso.descripcion }}<details><summary>Antes y después</summary><pre>{{ expresarArbol(paso.antes) }}</pre><pre>{{ expresarArbol(paso.despues) }}</pre></details></li></ol></details>
     <details class="technical-details"><summary>Ver fórmula</summary><pre class="formula-output">{{ formula }}</pre></details>
+    <SqlReference :arbol="actual.arbol" @actualizar="actualizarDesdeSQL" />
   </section>
 </template>

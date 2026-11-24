@@ -10,14 +10,14 @@ Funciona directamente en el navegador, sin ChatGPT ni instalación local.
 El proyecto permite pegar JSON o una consulta de un subconjunto SQL, validarlos
 y construir un árbol lógico en memoria.
 Incluye un diagrama interactivo con colores por operador y sampleos que iluminan
-los nodos de arriba hacia abajo. La pantalla inicial muestra la biblioteca lista
+los nodos desde las relaciones hasta la raíz, en postorden. La pantalla inicial muestra la biblioteca lista
 para escuchar. Los parámetros completos aparecen al seleccionar un nodo; el
 JSON y los detalles técnicos quedan plegados.
 Acepta el formato anidado original y una lista de nodos con referencias por id.
 La entrada SQL admite SELECT de columnas, FROM, alias de tablas, INNER JOIN con
 ON, WHERE con comparaciones y AND, y DISTINCT. También admite expresiones de
 álgebra relacional, transformaciones heurísticas paso a paso, reproducción con
-sampleos de piano y comparación de dos árboles independientes. No ejecuta consultas,
+sampleos orquestales originales, base musical y comparación de dos árboles independientes. El registro de cada motivo depende de la profundidad del nodo y puede ajustarse. También genera SQL de referencia editable desde el álgebra y el árbol actual. No ejecuta consultas,
 obtiene planes físicos ni estima costos de ejecución.
 
 El contrato JSON, la API y los límites están en
@@ -35,8 +35,11 @@ explican en [Heurísticas, sampleos y comparación](docs/heuristicas-sampleos-co
 Para probar dos árboles, abrir **Comparar A / B**: el par de biblioteca aparece
 listo para escuchar. **Editar consultas A y B** permite introducir otras entradas.
 Se pueden escuchar los originales o activar **Ver árboles transformados**.
-El recorrido predeterminado es por niveles, de arriba abajo y de izquierda a
-derecha; preorden y postorden están en **Cambiar recorrido**. Véanse los
+El recorrido predeterminado es postorden: entradas antes que operadores.
+Por niveles y preorden siguen en **Cambiar recorrido**. **Editar sonido** permite
+cambiar el registro de la raíz, el descenso por nivel y el volumen de la base;
+el mapeo es compartido por A y B. **SQL de referencia · Editar** permite revisar
+la traducción y regenerar el árbol desde el SQL editado. Véanse los
 [detalles de la interfaz visual y su verificación](docs/interfaz-visual-recorrido-2026-11-18.md).
 
 El prototipo también puede abrirse en Chrome/Edge o publicarse como sitio

@@ -13,9 +13,10 @@ Ejecutar `npm ci` si faltan dependencias y `npm run dev`.
 1. Escuchar el ejemplo inicial o editar una entrada JSON, SQL o de álgebra y generar el árbol.
 2. Aplicar una regla o las reglas disponibles. Deshacer permite volver al paso
    anterior; el historial conserva los árboles antes y después de cada regla.
-3. Escuchar el árbol por niveles: raíz primero, luego cada fila de izquierda a
-   derecha. El nodo activo toma el color intenso de su operador; los visitados
-   conservan su borde. **Cambiar recorrido** permite elegir preorden o postorden.
+3. Escuchar el árbol en postorden: relaciones primero, después sus operadores,
+   hasta llegar a la raíz. El nodo activo toma el color intenso de su operador;
+   los visitados conservan su borde. **Cambiar recorrido** permite elegir
+   preorden o niveles. **Editar sonido** ajusta el registro y la base musical.
    Detener cancela la secuencia.
 4. Pulsar **Comparar original y actual** para llevar ambos árboles a A/B.
 5. En **Comparar A / B** se pueden introducir dos entradas independientes y
@@ -111,40 +112,71 @@ de conjuntos del modelo previo, y `false` representa proyección sin eliminar
 duplicados. Los tests incluyen fixtures con duplicados, NULL y entradas vacías.
 El intérprete de esos fixtures existe solo en las pruebas, no en la aplicación.
 
-## Banco de sampleos
+## Banco de sampleos y profundidad
 
-Se distribuyen cinco fragmentos WAV melódicos, uno por operador, derivados de
-una grabación real de piano de **Alexander Holm, Salamander Grand Piano**,
-con licencia **CC BY 3.0**. Véanse la
-[atribución y adaptación](../src/assets/samples/ATRIBUCION.md), la grabación
-original y las huellas en `src/assets/samples/manifest.json`.
+El banco activo **Aventura orbital** contiene cinco motivos originales con
+cuerdas, flauta, trompa y campanas, y un acompañamiento en 6/8. Usa grabaciones
+de VSCO 2 CE y VCSL (CC0 1.0). La atribución, las licencias, las fuentes y el
+manifiesto están en src/assets/samples/aventura/. El banco anterior de piano
+y la propuesta de bloques musicales se conservan como antecedentes; no se
+reproducen en la aplicación.
 
-Los fragmentos están montados previamente con cuatro notas en Do pentatónica,
-ataques cada 0.25 s, duración de 1.5 s y pico máximo 0.65. Se reproducen mediante
-AudioBufferSourceNode; no se generan tonos con osciladores. No se instala una
-biblioteca de audio ni se descargan muestras externas durante la reproducción.
-`scripts/preparar-sampleos.mjs` es una herramienta opcional de autoría y utiliza
-Playwright externo y Chrome para decodificar la fuente, no para sintetizarla.
+Cada operador conserva un motivo y un ritmo propios. Hay once variantes
+preparadas, cuya referencia sigue la pentatónica G3, A3, B3, D4, E4, G4, A4,
+B4, D5, E5, G5. Todas duran 2 s; los inicios están separados 1.5 s. La
+sonificación completa dura (N − 1) × 1.5 + 2 segundos, sin cortar el último
+motivo. El registro se prepara nota por nota, sin cambiar la velocidad global
+ni la duración de los fragmentos.
 
-Cada visita inicia un fragmento, separado del siguiente por un segundo. La
-secuencia incluye la cola completa de la última muestra: N visitas duran
-N + 0.5 segundos. La programación usa el reloj de AudioContext; el intervalo
-de la interfaz actualiza únicamente el resaltado. El volumen se limita a 0.45
-(0.35 por defecto); con hasta dos fragmentos simultáneos, el límite de picos
-del banco deja margen bajo 1. Los tests inspeccionan los PCM reales, su energía,
-extremos, duración y el margen de mezcla.
+El registro es max(0, registroRaiz − profundidad × pasoNivel), con profundidad
+absoluta desde la raíz (0). Los valores predeterminados son registroRaiz=10
+(G5) y pasoNivel=1. Un JOIN en profundidad 2 usa D5; si una regla lo mueve a
+profundidad 1 usa E5, con el mismo motivo. La regla no se normaliza respecto a
+la profundidad máxima de cada árbol. A y B comparten los ajustes. Al alcanzar
+el mínimo G3, los niveles más profundos conservan ese registro: no se afirma
+que el audio permita distinguir profundidades ilimitadas.
 
-El plan cubre todos los nodos del árbol admitido, sin truncarlo; se prueba desde
-una relación hasta 2000 nodos. Los recorridos grandes pueden durar muchos
-minutos: la interfaz dispone de Detener. El reproductor maneja errores de carga
-o falta de Web Audio con un mensaje y permite volver a intentar.
+El usuario puede elegir raíz G3, G4 o G5; descenso de cero, uno o dos pasos de
+escala o una octava por nivel; y volumen de base entre 0 y 0.4. Los ajustes se
+mantienen durante la sesión, sin persistir al recargar. Cambiarlos detiene la
+reproducción. La base es un bucle común de 6 s, con entrada y salida suaves,
+independiente del orden de los operadores y sin transposición por nodo.
 
-El mapeo inicial representa tipo de operador y orden de visita. **No codifica
-todavía los valores de predicados ni todos los atributos.** Dos consultas
-distintas pueden producir la misma secuencia de muestras. Por eso el parecido
-sonoro no se utiliza para decidir equivalencia. Las referencias del par de
-biblioteca usan los mismos motivos y tiempos; la calidad y semejanza percibidas
-siguen requiriendo evaluación con oyentes.
+Los picos son 0.6 para motivos y 0.5 para la base. Con dos motivos solapados,
+base al máximo y salida limitada a 0.45, la cota es
+(2 × 0.6 + 0.4 × 0.5) × 0.45 = 0.63. Los tests inspeccionan los WAV reales:
+PCM, duraciones, energía, picos y extremos. El reloj de AudioContext programa
+los sonidos y el temporizador solo actualiza los nodos iluminados. Detener,
+cambiar de árbol o iniciar B cancela también la base de A.
+
+Se cubren todos los nodos admitidos, desde una relación hasta 2000 nodos.
+Los predicados y atributos no están codificados íntegramente en el sonido;
+la semejanza sonora no demuestra equivalencia. La calidad y el interés musical
+requieren evaluación auditiva. La demo biblioteca-postorden.wav se encuentra
+en docs/audio-propuestas/aventura-orbital/.
+
+## SQL de referencia editable
+
+El panel SQL de referencia traduce el árbol actual, incluido el resultado de
+las reglas. PI se representa con SELECT DISTINCT; PI_ALL con SELECT sin
+DISTINCT. Las relaciones sin proyección explícita se muestran con SELECT *;
+para regenerarlas con el lector SQL se deben indicar columnas explícitas.
+
+La traducción admite el subconjunto de álgebra de identificadores simples,
+INNER JOIN y comparaciones unidas por AND. Puede reunir las selecciones en
+WHERE y reagrupar INNER JOIN en una cadena, conservando sus condiciones; no
+pretende preservar el orden de ejecución ni ser un plan físico. Cuando una
+entrada aún no tiene una condición aplicable se usa ON 1 = 1 y se conserva
+su condición en el JOIN posterior que ya dispone de sus referencias.
+
+Las proyecciones intermedias y extendidas no se traducen: se muestra un aviso
+en lugar de omitirlas y cambiar el significado. Tampoco se traducen nombres
+citados ni predicados opacos fuera del subconjunto de álgebra. El resultado
+se analiza sintácticamente antes de presentarlo.
+
+El texto SQL se puede editar y aplicar al árbol mediante el lector existente.
+El cambio reinicia el historial heurístico del árbol actual; el original sigue
+disponible para comparar. Editar una consulta no ejecuta SQL contra un gestor.
 
 ## Archivos principales
 
@@ -155,6 +187,9 @@ siguen requiriendo evaluación con oyentes.
 | `src/modules/tree/heuristics.js` | Pasos heurísticos e historial antes/después. |
 | `src/modules/comparison/compareTrees.js` | Firma, métricas y equivalencia acotada. |
 | `src/modules/sonification/samplePlan.js` | Banco y programación del recorrido. |
+| `src/modules/sonification/music.js` | Motivos, escala, duraciones y configuración sonora. |
+| `src/modules/sql/treeToSql.js` | Traducción conservadora del árbol a SQL de referencia. |
+| `src/components/sql/SqlReference.vue` | Edición del SQL y actualización del árbol. |
 | `src/services/samplePlayer.js` | Carga local, caché, reproducción, exclusión A/B y cancelación. |
 | `src/components/trees/TreeWorkbench.vue` | Transformar, deshacer y comparar versiones. |
 | `src/modules/tree/treeLayout.js` | Distribución del diagrama, colores y descripciones. |
@@ -163,6 +198,18 @@ siguen requiriendo evaluación con oyentes.
 | `src/components/audio/SamplePlayer.vue` | Controles de reproducción y atribución. |
 
 ## Verificación
+
+Actualización del 19 de noviembre de 2026: `npm run check` aprobó **350 pruebas
+en 13 archivos** y compiló la aplicación. La vista previa de producción se
+comprobó en Chrome, con trece verificaciones de interfaz, sin errores de consola
+ni solicitudes fallidas. Se verificaron postorden, registro editable, SQL
+editable, transformaciones, cancelación A/B y vista móvil de 390 px. El informe
+está en `evidencias/verificacion-navegador-preview.json`; las capturas son
+`arbol-escuchando-preview.png`, `arbol-movil-preview.png` y
+`comparacion-visual-preview.png`. El servidor temporal terminó al completar
+las verificaciones. Los WAV se comprobaron mediante sus datos PCM reales.
+
+Los registros siguientes corresponden a versiones anteriores:
 
 Las verificaciones de esta ampliación se registran en
 [verificación de la ampliación](verificacion-ampliacion-2026-11-18.md).
@@ -173,4 +220,5 @@ La revisión visual posterior está registrada en
 Fuentes técnicas: [semántica de INNER JOIN y WHERE, PostgreSQL](https://www.postgresql.org/docs/18/queries-table-expressions.html),
 [AudioBufferSourceNode, MDN](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode),
 [AudioContext.resume, MDN](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/resume),
-[autor y licencia de Salamander](https://github.com/Tonejs/audio/blob/master/salamander/README).
+[fuentes y licencia de VSCO 2 CE](https://github.com/sgossner/VSCO-2-CE),
+[fuentes y licencia de VCSL](https://github.com/sgossner/VCSL).

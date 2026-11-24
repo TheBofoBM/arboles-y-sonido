@@ -1,0 +1,613 @@
+{
+  "nombre": "Aventura orbital",
+  "licencia": "CC0-1.0 (grabaciones)",
+  "descripcion": "Motivos originales de aventura espacial: cuerdas, flauta, trompa y campanas; pulso de 6/8. Sin melodías ni audio extraídos de videojuegos.",
+  "fuentes": {
+    "cuerdas": {
+      "repo": "VSCO-2-CE",
+      "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+      "ruta": "Strings/Violin Section/Spic/VlnEns_Spic_C4_v1_rr1.wav",
+      "midi": 72,
+      "url": "https://raw.githubusercontent.com/sgossner/VSCO-2-CE/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Violin%20Section/Spic/VlnEns_Spic_C4_v1_rr1.wav",
+      "sha256": "b734950875dff1dd7cda7c4721901516560b99f5655c3ffd40b6dc43c16e9c2f",
+      "recorteSegundos": 0.0022083333333333334
+    },
+    "flauta": {
+      "repo": "VSCO-2-CE",
+      "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+      "ruta": "Woodwinds/Flute/stac/LDFlute_stac_C4_v1_rr1.wav",
+      "midi": 72,
+      "url": "https://raw.githubusercontent.com/sgossner/VSCO-2-CE/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Flute/stac/LDFlute_stac_C4_v1_rr1.wav",
+      "sha256": "befba17301cc5ce3a4d55e05374659464040339b5cea8e35259df54f3bad44b3",
+      "recorteSegundos": 0.009875
+    },
+    "trompa": {
+      "repo": "VSCO-2-CE",
+      "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+      "ruta": "Brass/F Horn/stac/MOHorn_stac_C3_v2_rr1.wav",
+      "midi": 60,
+      "url": "https://raw.githubusercontent.com/sgossner/VSCO-2-CE/440300901dfe9275fd84e0b7763af1f8443ae62e/Brass/F%20Horn/stac/MOHorn_stac_C3_v2_rr1.wav",
+      "sha256": "fdaf3d5ad1e732a6e8e466ee232b101fe83b4cc79e79941315fba3037666eedf",
+      "recorteSegundos": 0
+    },
+    "cello": {
+      "repo": "VSCO-2-CE",
+      "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+      "ruta": "Strings/Cello Section/pizzT/pizzT_C3_v1_RR1.wav",
+      "midi": 60,
+      "url": "https://raw.githubusercontent.com/sgossner/VSCO-2-CE/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello%20Section/pizzT/pizzT_C3_v1_RR1.wav",
+      "sha256": "63353870ad00cebe9882b96abcceae12480d37b78b62ded6228fb638871e8a81",
+      "recorteSegundos": 0
+    },
+    "campanas": {
+      "repo": "VCSL",
+      "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+      "ruta": "Idiophones/Struck Idiophones/Glockenspiel/glock_soft_C5_02.wav",
+      "midi": 72,
+      "url": "https://raw.githubusercontent.com/sgossner/VCSL/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Idiophones/Struck%20Idiophones/Glockenspiel/glock_soft_C5_02.wav",
+      "sha256": "4fa149e6f224557df5fab98ad660a8f192bc6fbf2556077dd1089509bf4424e2",
+      "recorteSegundos": 0
+    }
+  },
+  "afinacion": "G mayor pentatónica; referencia MIDI según los mapas SFZ de VSCO (C4 del archivo = MIDI 72).",
+  "duracionMotivo": 2,
+  "intervaloNodo": 1.5,
+  "muestras": [
+    {
+      "archivo": "relacion-0.wav",
+      "tipo": "RELACION",
+      "registro": 0,
+      "notaReferencia": "G3",
+      "midiReferencia": 55,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "6da3e5d490ce90c54de32d6ec1a6d9350457bbd05a9e775ea7c8d21e44e20607"
+    },
+    {
+      "archivo": "relacion-1.wav",
+      "tipo": "RELACION",
+      "registro": 1,
+      "notaReferencia": "A3",
+      "midiReferencia": 57,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "088c217c1e4769759f5b7a3196d24f24658baf6b94669fadc42085e079c5f2a9"
+    },
+    {
+      "archivo": "relacion-2.wav",
+      "tipo": "RELACION",
+      "registro": 2,
+      "notaReferencia": "B3",
+      "midiReferencia": 59,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "f36fb5e89d81fb48fc1c115da13b73394805d6cf0fd704f8f7920ca73d90c549"
+    },
+    {
+      "archivo": "relacion-3.wav",
+      "tipo": "RELACION",
+      "registro": 3,
+      "notaReferencia": "D4",
+      "midiReferencia": 62,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "999ad72169945f23c98a10b6602da106c61043b247b314ca070b8ce730f2bdca"
+    },
+    {
+      "archivo": "relacion-4.wav",
+      "tipo": "RELACION",
+      "registro": 4,
+      "notaReferencia": "E4",
+      "midiReferencia": 64,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "6f681c01a2e232616008e5a36e2e007b595d3e2000e9cfdf6534ca6eefbac5f1"
+    },
+    {
+      "archivo": "relacion-5.wav",
+      "tipo": "RELACION",
+      "registro": 5,
+      "notaReferencia": "G4",
+      "midiReferencia": 67,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "2ce7f50f83e859a10b83c36f5077fc82b576f4cc09f2907e9509ae2d029948bf"
+    },
+    {
+      "archivo": "relacion-6.wav",
+      "tipo": "RELACION",
+      "registro": 6,
+      "notaReferencia": "A4",
+      "midiReferencia": 69,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "45343487023de2dc9cdf7a3734801b2f4606d0eeae298096a6dbbdba2ffd473a"
+    },
+    {
+      "archivo": "relacion-7.wav",
+      "tipo": "RELACION",
+      "registro": 7,
+      "notaReferencia": "B4",
+      "midiReferencia": 71,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "a6bef59184612944b1715db689d008e41aedb894d12f89ac2a8522fe509c9ada"
+    },
+    {
+      "archivo": "relacion-8.wav",
+      "tipo": "RELACION",
+      "registro": 8,
+      "notaReferencia": "D5",
+      "midiReferencia": 74,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "236bac67452470bf4bd7937710ac2c05d56b8f749ac0955b744f0d3ccdb6de0b"
+    },
+    {
+      "archivo": "relacion-9.wav",
+      "tipo": "RELACION",
+      "registro": 9,
+      "notaReferencia": "E5",
+      "midiReferencia": 76,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "4c8ecfe556d11b3370a2e96becf299ef4847846cc2b01da7ccff62f2357bbcdd"
+    },
+    {
+      "archivo": "relacion-10.wav",
+      "tipo": "RELACION",
+      "registro": 10,
+      "notaReferencia": "G5",
+      "midiReferencia": 79,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "efe790b0f86c99b6eb374fd506fa48b4a43d942536d0bb6c04ac36a260fc61af"
+    },
+    {
+      "archivo": "seleccion-0.wav",
+      "tipo": "SELECCION",
+      "registro": 0,
+      "notaReferencia": "G3",
+      "midiReferencia": 55,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "d0de14af8038817120f3c84bad717d30955bb30a4ad2545c6cbd38a327823d16"
+    },
+    {
+      "archivo": "seleccion-1.wav",
+      "tipo": "SELECCION",
+      "registro": 1,
+      "notaReferencia": "A3",
+      "midiReferencia": 57,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "0c3b1a77a77521a07bd1813d2de81414cfd58947f6c2b77c46e9ac3e6b8e5604"
+    },
+    {
+      "archivo": "seleccion-2.wav",
+      "tipo": "SELECCION",
+      "registro": 2,
+      "notaReferencia": "B3",
+      "midiReferencia": 59,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "d7ae64dec6d9275cd674df00d3ccd23f5565fd4b3723ae2dc1181131433c9ca3"
+    },
+    {
+      "archivo": "seleccion-3.wav",
+      "tipo": "SELECCION",
+      "registro": 3,
+      "notaReferencia": "D4",
+      "midiReferencia": 62,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "72707dc658dcdaaba72e49242aa574d748a51f39ee007fa5a41e2abf36e08a14"
+    },
+    {
+      "archivo": "seleccion-4.wav",
+      "tipo": "SELECCION",
+      "registro": 4,
+      "notaReferencia": "E4",
+      "midiReferencia": 64,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "dc4f4534b03241c511a87c4d3cec6b8194c23a9aeac916bc7544d98605a8167e"
+    },
+    {
+      "archivo": "seleccion-5.wav",
+      "tipo": "SELECCION",
+      "registro": 5,
+      "notaReferencia": "G4",
+      "midiReferencia": 67,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "8f110d9abc662a9c7f4d621117d013968f70590e5dd1cec16f57804ac5f2bff6"
+    },
+    {
+      "archivo": "seleccion-6.wav",
+      "tipo": "SELECCION",
+      "registro": 6,
+      "notaReferencia": "A4",
+      "midiReferencia": 69,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "d3072c628f13d6936f07201ce92a1954344593e0760edd87c9af225173c41f3d"
+    },
+    {
+      "archivo": "seleccion-7.wav",
+      "tipo": "SELECCION",
+      "registro": 7,
+      "notaReferencia": "B4",
+      "midiReferencia": 71,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "5819d25f13f6db197f609f021eadf0967939ba55693669b229377e1a47e9247e"
+    },
+    {
+      "archivo": "seleccion-8.wav",
+      "tipo": "SELECCION",
+      "registro": 8,
+      "notaReferencia": "D5",
+      "midiReferencia": 74,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "4b0721d0ea1eb5b41150347eea2f912b54abf646c91f1cdf00b4a7ca09a3f3a9"
+    },
+    {
+      "archivo": "seleccion-9.wav",
+      "tipo": "SELECCION",
+      "registro": 9,
+      "notaReferencia": "E5",
+      "midiReferencia": 76,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "2b03185a91a29f77e133afe00f20b783a2373922a5bac6601f214b059acdeed9"
+    },
+    {
+      "archivo": "seleccion-10.wav",
+      "tipo": "SELECCION",
+      "registro": 10,
+      "notaReferencia": "G5",
+      "midiReferencia": 79,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "485bd2b5393ce567bece161e0e9e91b0c965d33cd0d51e0c115a9d769efec3aa"
+    },
+    {
+      "archivo": "proyeccion-0.wav",
+      "tipo": "PROYECCION",
+      "registro": 0,
+      "notaReferencia": "G3",
+      "midiReferencia": 55,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "aceba1e72ee8d4ca8aff487c2e32409dee7c66815e01c5f3a094e978a85b7f3a"
+    },
+    {
+      "archivo": "proyeccion-1.wav",
+      "tipo": "PROYECCION",
+      "registro": 1,
+      "notaReferencia": "A3",
+      "midiReferencia": 57,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "2915faa8639c88174cf67305a9a8d7a6ae5f3e2cc471c1be47e70ef258035986"
+    },
+    {
+      "archivo": "proyeccion-2.wav",
+      "tipo": "PROYECCION",
+      "registro": 2,
+      "notaReferencia": "B3",
+      "midiReferencia": 59,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "66a2191aa740c827a909a5afb52f21e9ca1a37c4d4daab846e8cc5cb343e3460"
+    },
+    {
+      "archivo": "proyeccion-3.wav",
+      "tipo": "PROYECCION",
+      "registro": 3,
+      "notaReferencia": "D4",
+      "midiReferencia": 62,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "95726603c40e2cc46d96ba81dc04a2faf85305c20c028cad5456e23e39ece9e1"
+    },
+    {
+      "archivo": "proyeccion-4.wav",
+      "tipo": "PROYECCION",
+      "registro": 4,
+      "notaReferencia": "E4",
+      "midiReferencia": 64,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "6dd45063c5810cae51d6a45c7260f34bd604dfd65320fe4b8af4eb9b8aada8d0"
+    },
+    {
+      "archivo": "proyeccion-5.wav",
+      "tipo": "PROYECCION",
+      "registro": 5,
+      "notaReferencia": "G4",
+      "midiReferencia": 67,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "4bbb37dad35f1c0002eb60a2ad52ad49a9d12e684767c4fb11a3c76c76318224"
+    },
+    {
+      "archivo": "proyeccion-6.wav",
+      "tipo": "PROYECCION",
+      "registro": 6,
+      "notaReferencia": "A4",
+      "midiReferencia": 69,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "5919da7f6a1d4e27b673db6de858fa8ade18b42cb530a90df23314f9241529b1"
+    },
+    {
+      "archivo": "proyeccion-7.wav",
+      "tipo": "PROYECCION",
+      "registro": 7,
+      "notaReferencia": "B4",
+      "midiReferencia": 71,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "34bd2ee2e1183613310a1a3a1df715dbe32b120a2e30d3a93fa5f02843e9d5dd"
+    },
+    {
+      "archivo": "proyeccion-8.wav",
+      "tipo": "PROYECCION",
+      "registro": 8,
+      "notaReferencia": "D5",
+      "midiReferencia": 74,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "7555711cf04795acf255febc129e7f3ccd5cab49f97ee8ec0e2ea44f277a7d48"
+    },
+    {
+      "archivo": "proyeccion-9.wav",
+      "tipo": "PROYECCION",
+      "registro": 9,
+      "notaReferencia": "E5",
+      "midiReferencia": 76,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "988ea169e8cdf49c932a25dbeedee1893998f83fe4c22dbea4a644537fef66d9"
+    },
+    {
+      "archivo": "proyeccion-10.wav",
+      "tipo": "PROYECCION",
+      "registro": 10,
+      "notaReferencia": "G5",
+      "midiReferencia": 79,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "b6870be568cb00013c262937de3d3f8a651cd82f5e2d00d0274a40e06eb542e7"
+    },
+    {
+      "archivo": "proyeccion-extendida-0.wav",
+      "tipo": "PROYECCION_EXTENDIDA",
+      "registro": 0,
+      "notaReferencia": "G3",
+      "midiReferencia": 55,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "d683dd76f5b910157ae82c55fc20912073788d4ac151ffda8f88d68296ddae7d"
+    },
+    {
+      "archivo": "proyeccion-extendida-1.wav",
+      "tipo": "PROYECCION_EXTENDIDA",
+      "registro": 1,
+      "notaReferencia": "A3",
+      "midiReferencia": 57,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "af373ddb8bd684295e4274726f3bb4a8d44025d6c6b923d72014db9672f1f7c2"
+    },
+    {
+      "archivo": "proyeccion-extendida-2.wav",
+      "tipo": "PROYECCION_EXTENDIDA",
+      "registro": 2,
+      "notaReferencia": "B3",
+      "midiReferencia": 59,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "9a4df2d606e77624a4981d247fbac8b502c27e37579cea795198b723402cffc8"
+    },
+    {
+      "archivo": "proyeccion-extendida-3.wav",
+      "tipo": "PROYECCION_EXTENDIDA",
+      "registro": 3,
+      "notaReferencia": "D4",
+      "midiReferencia": 62,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "2178992823829f09f84b450af459729a07e0a1a9321e82e454c6b44b777bb384"
+    },
+    {
+      "archivo": "proyeccion-extendida-4.wav",
+      "tipo": "PROYECCION_EXTENDIDA",
+      "registro": 4,
+      "notaReferencia": "E4",
+      "midiReferencia": 64,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "e975f0320b4a3831e44affd9d52e64d28ad5b5d783d70794e9f66dc1d99dac46"
+    },
+    {
+      "archivo": "proyeccion-extendida-5.wav",
+      "tipo": "PROYECCION_EXTENDIDA",
+      "registro": 5,
+      "notaReferencia": "G4",
+      "midiReferencia": 67,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "3d5e9c4d4a7e12b06526f6e26c3bb5bdccb16b3d58888c0c8200c1a2dcd41920"
+    },
+    {
+      "archivo": "proyeccion-extendida-6.wav",
+      "tipo": "PROYECCION_EXTENDIDA",
+      "registro": 6,
+      "notaReferencia": "A4",
+      "midiReferencia": 69,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "b81180580b7e9fa6664d5aabc2f4b6ee80a4a2b7337e3ce0feb82952a05166aa"
+    },
+    {
+      "archivo": "proyeccion-extendida-7.wav",
+      "tipo": "PROYECCION_EXTENDIDA",
+      "registro": 7,
+      "notaReferencia": "B4",
+      "midiReferencia": 71,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "a6a931d15d40331dd47e2136c2a4dc3dd4d325f494673c2579a0637b3cd898de"
+    },
+    {
+      "archivo": "proyeccion-extendida-8.wav",
+      "tipo": "PROYECCION_EXTENDIDA",
+      "registro": 8,
+      "notaReferencia": "D5",
+      "midiReferencia": 74,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "96736662db36497a860db47a0c195e040adbae7d844e7df99608cf5425cd02bb"
+    },
+    {
+      "archivo": "proyeccion-extendida-9.wav",
+      "tipo": "PROYECCION_EXTENDIDA",
+      "registro": 9,
+      "notaReferencia": "E5",
+      "midiReferencia": 76,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "7e5d3ea79352160115d9db9e985e0d5d4dc5f36c92743d90001307182da02a25"
+    },
+    {
+      "archivo": "proyeccion-extendida-10.wav",
+      "tipo": "PROYECCION_EXTENDIDA",
+      "registro": 10,
+      "notaReferencia": "G5",
+      "midiReferencia": 79,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "8c77e460dc35dee5b8eaefa5e08ccd4d865d21cb599a5f97e197ae6bc787e54b"
+    },
+    {
+      "archivo": "join-0.wav",
+      "tipo": "JOIN",
+      "registro": 0,
+      "notaReferencia": "G3",
+      "midiReferencia": 55,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "edad0c4da7e16e557c59642ea006885fe69a21b38a9689dbe595a629258f033c"
+    },
+    {
+      "archivo": "join-1.wav",
+      "tipo": "JOIN",
+      "registro": 1,
+      "notaReferencia": "A3",
+      "midiReferencia": 57,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "86135b47711d1e975be7d4f4821b503a331693cb4d387a52845f08012370fb6e"
+    },
+    {
+      "archivo": "join-2.wav",
+      "tipo": "JOIN",
+      "registro": 2,
+      "notaReferencia": "B3",
+      "midiReferencia": 59,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "c2b9315d05e6e4ad8c6840ef67629bcc74aebab1291f1033b70f588d28ddbe3b"
+    },
+    {
+      "archivo": "join-3.wav",
+      "tipo": "JOIN",
+      "registro": 3,
+      "notaReferencia": "D4",
+      "midiReferencia": 62,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "26673eff62a7318b3a5117776f21aca8c797dcc211329f73f14f14237a2ed452"
+    },
+    {
+      "archivo": "join-4.wav",
+      "tipo": "JOIN",
+      "registro": 4,
+      "notaReferencia": "E4",
+      "midiReferencia": 64,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "ede088840f0ba8ce30e1cdbe03fee403ad3238296332be5d07cdc5ec3633a311"
+    },
+    {
+      "archivo": "join-5.wav",
+      "tipo": "JOIN",
+      "registro": 5,
+      "notaReferencia": "G4",
+      "midiReferencia": 67,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "645eba6e6f4959d4b8819dca9ed941a298010a2b64af5f66ef342038c3620eb3"
+    },
+    {
+      "archivo": "join-6.wav",
+      "tipo": "JOIN",
+      "registro": 6,
+      "notaReferencia": "A4",
+      "midiReferencia": 69,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "21d79634a7b3d0df2440891de42337956281cb8c1da05ca29e504c437ff4a23e"
+    },
+    {
+      "archivo": "join-7.wav",
+      "tipo": "JOIN",
+      "registro": 7,
+      "notaReferencia": "B4",
+      "midiReferencia": 71,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "d52d5f21643aec4686a7fee060b4d2bdc8dde2185b3c8fddc8954d3b4bd96e63"
+    },
+    {
+      "archivo": "join-8.wav",
+      "tipo": "JOIN",
+      "registro": 8,
+      "notaReferencia": "D5",
+      "midiReferencia": 74,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "87ade104e2ba07c5f01099b0cc1893761393d9cef7c61f2fb4d7e47511166252"
+    },
+    {
+      "archivo": "join-9.wav",
+      "tipo": "JOIN",
+      "registro": 9,
+      "notaReferencia": "E5",
+      "midiReferencia": 76,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "f1f7781f3ae3c62f1f4b191a3397b4d9982ac63c9e90059a19d3ffce3258d4f6"
+    },
+    {
+      "archivo": "join-10.wav",
+      "tipo": "JOIN",
+      "registro": 10,
+      "notaReferencia": "G5",
+      "midiReferencia": 79,
+      "duracion": 2,
+      "pico": 0.6,
+      "sha256": "25774d2958552409b95a36b61be3c958c335bc795f719259ee8a84d26c6eea24"
+    }
+  ],
+  "base": {
+    "archivo": "base.wav",
+    "duracion": 6,
+    "pico": 0.5,
+    "sha256": "646a8369ee1ddd3e2d07177df4b5deed98f95bd49527d596fd19a3d105f9f274"
+  }
+}
