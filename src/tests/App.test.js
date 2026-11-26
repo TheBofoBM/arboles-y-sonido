@@ -10,6 +10,8 @@ describe('Página inicial', () => {
     expect(html).toContain('href="#contenido"')
     expect(html).toContain('<main id="contenido"')
     expect(html).toContain('id="project-title"')
+    expect(html).toContain('id="tema-interfaz"')
+    for (const nombre of ['Lavanda', 'Bosque', 'Océano', 'Arena']) expect(html).toContain(nombre)
     expect(html).toContain('Método computacional para codificar árboles de consulta relacional')
     expect(html).toContain('id="tree-sql"')
     expect(html).not.toContain('id="algebra-input"')

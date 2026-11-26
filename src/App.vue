@@ -4,6 +4,26 @@ import ProjectOverview from './components/common/ProjectOverview.vue'
 
 const SqlReader = defineAsyncComponent(() => import('./components/sql/SqlReader.vue'))
 const TreeComparison = defineAsyncComponent(() => import('./components/comparison/TreeComparison.vue'))
+const temas = [
+  { id: 'lavanda', nombre: 'Lavanda' },
+  { id: 'bosque', nombre: 'Bosque' },
+  { id: 'oceano', nombre: 'Océano' },
+  { id: 'arena', nombre: 'Arena' },
+]
+const claveTema = 'arboles-y-sonido:tema'
+const tema = ref('lavanda')
+try {
+  const guardado = globalThis.localStorage?.getItem(claveTema)
+  if (temas.some(opcion => opcion.id === guardado)) tema.value = guardado
+} catch { /* El selector también funciona sin almacenamiento. */ }
+
+function aplicarTema() {
+  if (typeof document === 'undefined') return
+  document.documentElement.dataset.tema = tema.value
+  try { globalThis.localStorage?.setItem(claveTema, tema.value) } catch { /* Preferencia de sesión. */ }
+}
+aplicarTema()
+
 const modoEntrada = ref('sql')
 const comparacion = shallowRef(null)
 function compararVersiones(par) { comparacion.value = { ...par }; modoEntrada.value = 'comparar' }
@@ -17,7 +37,12 @@ function compararVersiones(par) { comparacion.value = { ...par }; modoEntrada.va
         <span class="brand-mark" aria-hidden="true">AS</span>
         <span>Árboles y sonido</span>
       </a>
-      <span class="status">Prototipo de tesis</span>
+      <div class="theme-picker">
+        <label for="tema-interfaz">Tema</label>
+        <select id="tema-interfaz" v-model="tema" @change="aplicarTema">
+          <option v-for="opcion in temas" :key="opcion.id" :value="opcion.id">{{ opcion.nombre }}</option>
+        </select>
+      </div>
     </header>
 
     <main id="contenido" tabindex="-1">
