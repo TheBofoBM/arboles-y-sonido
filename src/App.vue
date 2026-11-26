@@ -1,19 +1,12 @@
 <script setup>
 import { defineAsyncComponent, ref, shallowRef } from 'vue'
 import ProjectOverview from './components/common/ProjectOverview.vue'
-import TreeReader from './components/trees/TreeReader.vue'
 
 const SqlReader = defineAsyncComponent(() => import('./components/sql/SqlReader.vue'))
-const AlgebraReader = defineAsyncComponent(() => import('./components/trees/AlgebraReader.vue'))
 const TreeComparison = defineAsyncComponent(() => import('./components/comparison/TreeComparison.vue'))
-const modoEntrada = ref('algebra')
-const transferenciaJSON = shallowRef(null)
+const modoEntrada = ref('sql')
 const comparacion = shallowRef(null)
 function compararVersiones(par) { comparacion.value = { ...par }; modoEntrada.value = 'comparar' }
-function recibirArbol(arbol) {
-  transferenciaJSON.value = { texto: JSON.stringify(arbol, null, 2) }
-  modoEntrada.value = 'json'
-}
 </script>
 
 <template>
@@ -30,15 +23,11 @@ function recibirArbol(arbol) {
     <main id="contenido" tabindex="-1">
       <ProjectOverview />
       <div class="input-modes" role="group" aria-label="Tipo de entrada">
-        <button type="button" :aria-pressed="modoEntrada === 'json'" @click="modoEntrada = 'json'">JSON</button>
         <button type="button" :aria-pressed="modoEntrada === 'sql'" @click="modoEntrada = 'sql'">SQL</button>
-        <button type="button" :aria-pressed="modoEntrada === 'algebra'" @click="modoEntrada = 'algebra'">Álgebra relacional</button>
         <button type="button" :aria-pressed="modoEntrada === 'comparar'" @click="modoEntrada = 'comparar'">Comparar A / B</button>
       </div>
       <KeepAlive>
-        <TreeReader v-if="modoEntrada === 'json'" :entrada="transferenciaJSON" @comparar="compararVersiones" />
-        <SqlReader v-else-if="modoEntrada === 'sql'" @enviar-json="recibirArbol" @comparar="compararVersiones" />
-        <AlgebraReader v-else-if="modoEntrada === 'algebra'" @comparar="compararVersiones" />
+        <SqlReader v-if="modoEntrada === 'sql'" @comparar="compararVersiones" />
         <TreeComparison v-else :entrada="comparacion" />
       </KeepAlive>
     </main>

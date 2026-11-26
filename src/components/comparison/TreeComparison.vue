@@ -5,7 +5,7 @@ import TreeResult from '../trees/TreeResult.vue'
 import OperatorLegend from '../trees/OperatorLegend.vue'
 import SamplePlayer from '../audio/SamplePlayer.vue'
 const props = defineProps({ entrada: { type: Object, default: null } })
-const { tipoA, tipoB, textoA, textoB, resultado, errores, comparar, recibir, cargarEjemplo } = useTreeComparison()
+const { textoA, textoB, resultado, errores, comparar, recibir, cargarEjemplo } = useTreeComparison({ soloSQL: true })
 const referencia = ref(false), activoA = ref(null), activoB = ref(null), visitasA = ref([]), visitasB = ref([])
 watch(() => props.entrada, value => { if (value) recibir(value); else comparar() }, { immediate: true })
 function ejemplo() { cargarEjemplo(); comparar() }
@@ -13,12 +13,12 @@ function ejemplo() { cargarEjemplo(); comparar() }
 
 <template>
   <section class="comparison" aria-labelledby="comparison-title">
-    <div class="section-heading"><div><p class="eyebrow">DOS FORMAS DE ESCUCHAR</p><h2 id="comparison-title">Un árbol junto al otro.</h2></div><button type="button" class="button-secondary" @click="ejemplo">Cargar par equivalente de biblioteca</button></div>
-    <details class="entry-editor" :open="!resultado"><summary><span class="entry-icon" aria-hidden="true">⌘</span> Editar consultas A y B <span class="editor-caption">SQL, álgebra o JSON</span></summary>
+    <div class="section-heading"><div><p class="eyebrow">DOS FORMAS DE ESCUCHAR</p><h2 id="comparison-title">Un árbol junto al otro.</h2></div><button type="button" class="button-secondary" @click="ejemplo">Cargar consultas de biblioteca</button></div>
+    <details class="entry-editor" :open="!resultado"><summary><span class="entry-icon" aria-hidden="true">⌘</span> Editar consultas A y B <span class="editor-caption">SQL</span></summary>
       <form @submit.prevent="comparar">
         <div class="comparison-columns">
-          <div class="reader-form"><h3>Árbol A</h3><label for="tipo-a">Entrada A</label><select id="tipo-a" v-model="tipoA"><option value="sql">SQL</option><option value="algebra">Álgebra relacional</option><option value="json">JSON</option></select><label for="texto-a">Consulta o estructura A</label><textarea id="texto-a" v-model="textoA" rows="7" spellcheck="false" :aria-invalid="errores.some(e => e.arbol === 'A')"></textarea></div>
-          <div class="reader-form"><h3>Árbol B</h3><label for="tipo-b">Entrada B</label><select id="tipo-b" v-model="tipoB"><option value="sql">SQL</option><option value="algebra">Álgebra relacional</option><option value="json">JSON</option></select><label for="texto-b">Consulta o estructura B</label><textarea id="texto-b" v-model="textoB" rows="7" spellcheck="false" :aria-invalid="errores.some(e => e.arbol === 'B')"></textarea></div>
+          <div class="reader-form"><h3>Árbol A</h3><label for="texto-a">Consulta SQL A</label><textarea id="texto-a" v-model="textoA" rows="7" spellcheck="false" :aria-invalid="errores.some(e => e.arbol === 'A')"></textarea></div>
+          <div class="reader-form"><h3>Árbol B</h3><label for="texto-b">Consulta SQL B</label><textarea id="texto-b" v-model="textoB" rows="7" spellcheck="false" :aria-invalid="errores.some(e => e.arbol === 'B')"></textarea></div>
         </div><div class="editor-actions"><button type="submit" class="button-primary">Generar y comparar árboles</button></div>
       </form>
     </details>

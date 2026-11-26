@@ -7,40 +7,37 @@ datos»**.
 **Abrir el prototipo:** [Árboles y sonido en GitHub Pages](https://thebofobm.github.io/arboles-y-sonido/).
 Funciona directamente en el navegador, sin ChatGPT ni instalación local.
 
-El proyecto permite pegar JSON o una consulta de un subconjunto SQL, validarlos
-y construir un árbol lógico en memoria.
-Incluye un diagrama interactivo con colores por operador y sampleos que iluminan
-los nodos desde las relaciones hasta la raíz, en postorden. La pantalla inicial muestra la biblioteca lista
-para escuchar. Los parámetros completos aparecen al seleccionar un nodo; el
-JSON y los detalles técnicos quedan plegados.
-Acepta el formato anidado original y una lista de nodos con referencias por id.
-La entrada SQL admite SELECT de columnas, FROM, alias de tablas, INNER JOIN con
-ON, WHERE con comparaciones y AND, y DISTINCT. También admite expresiones de
-álgebra relacional, transformaciones heurísticas paso a paso, reproducción con
-sampleos orquestales originales, base musical y comparación de dos árboles independientes. El registro de cada motivo depende de la profundidad del nodo y puede ajustarse. También genera SQL de referencia editable desde el álgebra y el árbol actual. No ejecuta consultas,
-obtiene planes físicos ni estima costos de ejecución.
+La entrada de la interfaz es SQL. Se admite SELECT de columnas, FROM,
+alias de tablas, INNER JOIN con ON, WHERE con comparaciones y AND, y DISTINCT.
+El prototipo analiza la consulta y construye un árbol lógico en memoria. La
+fórmula de álgebra relacional se puede consultar desde el árbol. El prototipo
+trabaja sin conexión a un gestor de bases de datos.
 
-El contrato JSON, la API y los límites están en
-[Modelo de árboles relacionales](docs/modelo-arboles-relacionales.md).
-La API de carga, formatos, validaciones e interfaz se describen en
-[Lectura y construcción de árboles](docs/lectura-construccion-arboles.md).
-La elección de parser, el subconjunto SQL y la representación de DISTINCT se
-documentan en [SQL a árbol lógico](docs/sql-a-arbol-logico.md).
-Los ejemplos de `Libro` y `Autor` están contrastados con el capítulo 2 e incluyen
-los árboles A y B de la figura 2.3:
-[procedencia y correspondencia de los ejemplos](src/data/examples/README.md).
+- **Transformación.** FROM produce las relaciones (hojas), INNER JOIN une dos
+  entradas, WHERE añade una selección y SELECT define la proyección final.
+  DISTINCT se guarda en la proyección.
+- **Edición.** Selecciona un nodo para ver su expresión. Una selección
+  aplicable puede descomponerse si tiene AND o moverse a la rama de un INNER
+  JOIN cuando su predicado depende solo de esa rama. Puedes deshacer el
+  movimiento, editar el SQL de referencia o comparar el original con el
+  árbol actual.
+- **Mapeo.** En postorden suenan las entradas antes que el operador. El piano
+  marca cada visita con un Sol3 y el tipo de nodo elige un motivo original
+  del banco Aventura orbital. Los motivos comparten escala pentatónica y
+  pulso. La profundidad determina la variante de registro: Sol5 para la raíz
+  por defecto, un grado menos por nivel, hasta Sol3. Los motivos comienzan
+  cada 1.5 s y duran 2 s. El piano mantiene el mismo pulso en los tres
+  recorridos y la escucha ilumina cada nodo cuando empieza su motivo.
+- **Comparación.** Introduce dos consultas SQL o compara el árbol original y
+  el actual. Las reglas y la comparación tienen un alcance acotado, descrito
+  en [Heurísticas, sampleos y comparación](docs/heuristicas-sampleos-comparacion.md).
 
-La entrada de fórmulas, las reglas, la comparación A/B y la reproducción se
-explican en [Heurísticas, sampleos y comparación](docs/heuristicas-sampleos-comparacion.md).
-Para probar dos árboles, abrir **Comparar A / B**: el par de biblioteca aparece
-listo para escuchar. **Editar consultas A y B** permite introducir otras entradas.
-Se pueden escuchar los originales o activar **Ver árboles transformados**.
-El recorrido predeterminado es postorden: entradas antes que operadores.
-Por niveles y preorden siguen en **Cambiar recorrido**. **Editar sonido** permite
-cambiar el registro de la raíz, el descenso por nivel y el volumen de la base;
-el mapeo es compartido por A y B. **SQL de referencia · Editar** permite revisar
-la traducción y regenerar el árbol desde el SQL editado. Véanse los
-[detalles de la interfaz visual y su verificación](docs/interfaz-visual-recorrido-2026-11-18.md).
+El pulso de piano usa una grabación de Salamander Grand Piano de Alexander
+Holm ([CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)), adaptada a
+partir del primer ataque del [sample de relación anterior](src/assets/samples/relacion.wav).
+Se recortó, transpuso cinco semitonos hacia abajo, aplicaron fundidos y
+repitió cada 1.5 s. Los [créditos de los motivos orquestales](src/assets/samples/aventura/ATRIBUCION.md)
+documentan sus grabaciones CC0.
 
 El prototipo también puede abrirse en Chrome/Edge o publicarse como sitio
 estático en GitHub Pages. Véanse las

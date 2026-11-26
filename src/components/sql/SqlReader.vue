@@ -2,8 +2,9 @@
 import { useSqlReader } from '../../composables/useSqlReader.js'
 import TreeWorkbench from '../trees/TreeWorkbench.vue'
 
-defineEmits(['enviar-json', 'comparar'])
+defineEmits(['comparar'])
 const { texto, resultado, errores, estado, procesar, cargarEjemplo, limpiar } = useSqlReader()
+procesar()
 </script>
 
 <template>
@@ -40,13 +41,6 @@ const { texto, resultado, errores, estado, procesar, cargarEjemplo, limpiar } = 
       {{ estado === 'valido' ? 'Árbol listo para escuchar.' : estado === 'invalido' ? 'Revisa la sintaxis y el subconjunto SQL admitido.' : 'Edita la consulta y pulsa Generar árbol desde SQL.' }}
     </p>
     <template v-if="resultado">
-      <details class="technical-details"><summary>Opciones de la consulta</summary>
-      <button class="button-secondary transfer-json" type="button" @click="$emit('enviar-json', resultado.arbol)">Enviar árbol al editor JSON</button>
-      <details class="result-details sql-analysis">
-        <summary>Tablas, alias, columnas y condiciones identificados</summary>
-        <pre class="normalized-json" tabindex="0">{{ JSON.stringify(resultado.analisisSQL, null, 2) }}</pre>
-      </details>
-      </details>
       <TreeWorkbench :resultado="resultado" @comparar="$emit('comparar', $event)" />
     </template>
   </section>

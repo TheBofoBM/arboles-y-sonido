@@ -30,12 +30,12 @@ watch(visitados, value => emit('visitados', value), { flush: 'sync' })
     </div>
     <div class="playback-line">
       <span class="audio-bars" :class="{ moving: reproduciendo }" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      <p role="status">{{ sonando ? 'Suena: ' + ESTILOS_OPERADOR[sonando.tipo].nombre + ' · ' + eventoActivo.nota + ' · profundidad ' + eventoActivo.profundidad : cargando ? 'Preparando los fragmentos…' : visitados.length === nodos.length ? 'Recorrido completo. Vuelve a escucharlo.' : 'Aventura orbital · una base y un motivo por operador.' }}</p>
+      <p role="status">{{ sonando ? 'Suena: ' + ESTILOS_OPERADOR[sonando.tipo].nombre + ' · ' + eventoActivo.nota + ' · profundidad ' + eventoActivo.profundidad : cargando ? 'Preparando los fragmentos…' : visitados.length === nodos.length ? 'Recorrido completo. Vuelve a escucharlo.' : 'Pulso de piano · un motivo por operador.' }}</p>
     </div>
     <div class="playback-track" role="progressbar" :aria-label="`Progreso de ${nombre}`" :aria-valuenow="visitados.length" :aria-valuemax="nodos.length" aria-valuemin="0"><span :style="{ width: progreso + '%' }"></span></div>
     <div class="audio-secondary">
       <details class="audio-options"><summary>Cambiar recorrido</summary><label :for="id" class="sr-only">Recorrido</label><select :id="id" v-model="orden"><option value="postorden">Desde las relaciones · postorden</option><option value="niveles">Desde la raíz · por niveles</option><option value="preorden">Preorden · raíz, izquierda, derecha</option></select></details>
-      <details class="audio-credit"><summary>Créditos del audio</summary><p>Motivos originales de aventura espacial. Grabaciones orquestales de VSCO 2 CE (Sam Gossner y Simon Dalzell) y VCSL (Versilian Studios), CC0 1.0. <a href="https://github.com/sgossner/VSCO-2-CE" target="_blank" rel="noreferrer">VSCO</a> · <a href="https://github.com/sgossner/VCSL" target="_blank" rel="noreferrer">VCSL</a>.</p></details>
+      <details class="audio-credit"><summary>Créditos del audio</summary><p>Piano de Salamander Grand Piano (Alexander Holm, <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noreferrer">CC BY 3.0</a>), recortado y transpuesto a Sol3. Motivos originales de aventura espacial. Grabaciones orquestales de VSCO 2 CE (Sam Gossner y Simon Dalzell) y VCSL (Versilian Studios), CC0 1.0. <a href="https://github.com/sgossner/VSCO-2-CE" target="_blank" rel="noreferrer">VSCO</a> · <a href="https://github.com/sgossner/VCSL" target="_blank" rel="noreferrer">VCSL</a>.</p></details>
     </div>
     <details class="sound-settings"><summary>Editar sonido · registro y base</summary>
       <p class="field-help">Más cerca de la raíz, más agudo. La profundidad se cuenta desde la raíz (0). Los ajustes se comparten con A y B.</p>

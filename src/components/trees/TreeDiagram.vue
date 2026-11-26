@@ -2,7 +2,8 @@
 import { computed, ref, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { distribuirArbol } from '../../modules/tree/treeLayout.js'
 import OperatorLegend from './OperatorLegend.vue'
-const props = defineProps({ arbol: { type: Object, required: true }, nodoActivo: { type: String, default: null }, visitados: { type: Array, default: () => [] }, nombre: { type: String, default: 'Árbol lógico' }, mostrarLeyenda: { type: Boolean, default: true } })
+const props = defineProps({ arbol: { type: Object, required: true }, nodoActivo: { type: String, default: null }, visitados: { type: Array, default: () => [] }, nombre: { type: String, default: 'Árbol lógico' }, mostrarLeyenda: { type: Boolean, default: true }, editable: Boolean })
+const emit = defineEmits(['seleccionar'])
 const plano = computed(() => distribuirArbol(props.arbol))
 const superficie = ref(null), ancho = ref(800), escala = ref(1), seleccionado = ref(null)
 const vistos = computed(() => new Set(props.visitados))
@@ -15,6 +16,7 @@ function ajustar() {
 }
 function zoom(factor) { escala.value = Math.min(2, Math.max(0.001, escala.value * factor)) }
 watch(() => props.arbol, () => { seleccionado.value = null; nextTick(ajustar) })
+watch(seleccionado, value => emit('seleccionar', value), { flush: 'sync' })
 watch(() => props.nodoActivo, async id => {
   const n = indice.value.get(id)
   if (!n) return
@@ -63,6 +65,6 @@ const corto = (value, max = 26) => value.length > max ? value.slice(0, max - 1) 
     </div>
     <OperatorLegend v-if="mostrarLeyenda" />
     <div v-if="detalle" class="node-inspector" :style="{ '--operator-color': detalle.estilo.color }"><strong>{{ detalle.estilo.nombre }}</strong><p>{{ detalle.descripcion }}</p><button type="button" aria-label="Cerrar detalle del nodo" @click="seleccionado = null">×</button></div>
-    <p v-else class="canvas-hint">Selecciona un nodo para ver su expresión completa.</p>
+    <p v-else class="canvas-hint">{{ editable ? 'Selecciona un operador para inspeccionarlo y ver si se puede mover.' : 'Selecciona un nodo para ver su expresión completa.' }}</p>
   </div>
 </template>

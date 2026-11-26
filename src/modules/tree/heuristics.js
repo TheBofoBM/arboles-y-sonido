@@ -10,7 +10,7 @@ function calificador(nodo) {
 }
 
 /** Una transformación demostrable. Nunca atraviesa proyecciones ni cambia JOIN. */
-export function aplicarPasoHeuristico(documento) {
+export function aplicarPasoHeuristico(documento, nodoId = null) {
   const antes = construirArbol(documento)
   const copia = structuredClone(antes.arbol)
   const ids = new Set(antes.nodos.map(n => n.id))
@@ -23,7 +23,7 @@ export function aplicarPasoHeuristico(documento) {
       nodo.hijos[i] = visit(nodo.hijos[i])
       if (regla) return nodo
     }
-    if (nodo.tipo !== 'SELECCION') return nodo
+    if (nodo.tipo !== 'SELECCION' || (nodoId !== null && nodo.id !== nodoId)) return nodo
     const clauses = analizarPredicado(nodo.parametros.predicado)
     if (!clauses) return nodo
     if (clauses.length > 1) {

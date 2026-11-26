@@ -1,6 +1,8 @@
 import { construirArbol } from '../tree/treeLoader.js'
 import { MOTIVOS, DURACION_MOTIVO, INTERVALO_NODO, DURACION_BASE, validarConfiguracion, nombreRegistro } from './music.js'
 
+import piano from '../../assets/samples/piano/base.wav?url'
+
 // Variantes preparadas: cambiar el registro no altera el tempo ni la duración.
 const archivos = import.meta.glob('../../assets/samples/aventura/*.wav', { eager: true, query: '?url', import: 'default' })
 export const MUESTRAS = Object.freeze(Object.fromEntries(Object.entries(MOTIVOS).map(([tipo, motivo]) => [tipo, Object.freeze({
@@ -10,7 +12,7 @@ export const MUESTRAS = Object.freeze(Object.fromEntries(Object.entries(MOTIVOS)
     url: archivos[`../../assets/samples/aventura/${motivo.id}-${registro}.wav`],
   }))),
 })])))
-export const BASE = Object.freeze({ id: 'base-aventura', duracion: DURACION_BASE, url: archivos['../../assets/samples/aventura/base.wav'] })
+export const BASE = Object.freeze({ id: 'base-piano', duracion: DURACION_BASE, url: piano })
 export const BANCO = Object.freeze([BASE, ...Object.values(MUESTRAS).flatMap(m => m.variantes)])
 
 /** Postorden: entradas antes que operadores. Profundidad absoluta, raíz=0. */

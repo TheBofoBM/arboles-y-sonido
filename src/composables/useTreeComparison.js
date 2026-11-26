@@ -1,11 +1,16 @@
 import { ref, shallowRef, watch } from 'vue'
 import { procesarEntrada } from '../modules/tree/entry.js'
 import { compararArboles } from '../modules/comparison/compareTrees.js'
+import { arbolASQL } from '../modules/sql/treeToSql.js'
 import sql from '../data/examples/biblioteca.sql?raw'
 import algebra from '../data/examples/biblioteca-filtrada.algebra.txt?raw'
 
-export function useTreeComparison() {
-  const tipoA = ref('sql'), tipoB = ref('algebra'), textoA = ref(sql), textoB = ref(algebra)
+const sqlB = sql.replace("WHERE L.anio > 2020\nAND A.pais = 'México'", "WHERE A.pais = 'México'\nAND L.anio > 2020")
+
+export function useTreeComparison({ soloSQL = false } = {}) {
+  const ejemploB = soloSQL ? sqlB : algebra
+  const tipoEjemploB = soloSQL ? 'sql' : 'algebra'
+  const tipoA = ref('sql'), tipoB = ref(tipoEjemploB), textoA = ref(sql), textoB = ref(ejemploB)
   const resultado = shallowRef(null), errores = shallowRef([])
   const reiniciar = () => { resultado.value = null; errores.value = [] }
   watch([tipoA, tipoB, textoA, textoB], reiniciar, { flush: 'sync' })
@@ -18,10 +23,21 @@ export function useTreeComparison() {
     }
   }
   function recibir({ a, b }) {
+    if (soloSQL) {
+      tipoA.value = 'sql'; tipoB.value = 'sql'
+      for (const [arbol, entrada] of [[a, textoA], [b, textoB]]) {
+        try { entrada.value = arbolASQL(arbol) } catch { entrada.value = '' }
+      }
+      reiniciar()
+      try { resultado.value = compararArboles(a, b) } catch (error) {
+        errores.value = [{ arbol: 'A/B', mensaje: error.message }]
+      }
+      return
+    }
     tipoA.value = 'json'; tipoB.value = 'json'
     textoA.value = JSON.stringify(a, null, 2); textoB.value = JSON.stringify(b, null, 2)
     comparar()
   }
-  function cargarEjemplo() { tipoA.value = 'sql'; tipoB.value = 'algebra'; textoA.value = sql; textoB.value = algebra; reiniciar() }
+  function cargarEjemplo() { tipoA.value = 'sql'; tipoB.value = tipoEjemploB; textoA.value = sql; textoB.value = ejemploB; reiniciar() }
   return { tipoA, tipoB, textoA, textoB, resultado, errores, comparar, recibir, cargarEjemplo }
 }

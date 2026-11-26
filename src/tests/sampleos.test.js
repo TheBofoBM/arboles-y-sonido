@@ -33,7 +33,7 @@ describe('Secuencia de sampleos y banco grabado', () => {
   it('asigna una muestra a cada operador y verifica PCM, duración, picos y extremos reales', () => {
     expect(Object.keys(MUESTRAS)).toEqual(Object.keys(OPERADORES))
     for (const m of BANCO) {
-      const wav = readFileSync(join(process.cwd(), 'src/assets/samples/aventura', m === BASE ? 'base.wav' : m.id + '.wav'))
+      const wav = readFileSync(join(process.cwd(), 'src/assets/samples', m === BASE ? 'piano/base.wav' : `aventura/${m.id}.wav`))
       expect(wav.toString('ascii', 0, 4)).toBe('RIFF')
       expect(wav.toString('ascii', 8, 12)).toBe('WAVE')
       expect(wav.readUInt16LE(20)).toBe(1)
