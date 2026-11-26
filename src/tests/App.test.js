@@ -4,18 +4,21 @@ import { describe, expect, it } from 'vitest'
 import App from '../App.vue'
 
 describe('Página inicial', () => {
-  it('abre el ejemplo visual con escucha y conserva las entradas y el alcance lógico', async () => {
+  it('abre el ejemplo visual con escucha con SQL como única entrada y conserva el alcance lógico', async () => {
     const html = await renderToString(createSSRApp(App))
 
     expect(html).toContain('href="#contenido"')
     expect(html).toContain('<main id="contenido"')
     expect(html).toContain('id="project-title"')
     expect(html).toContain('Método computacional para codificar árboles de consulta relacional')
-    expect(html).toContain('id="algebra-input"')
+    expect(html).toContain('id="tree-sql"')
+    expect(html).not.toContain('id="algebra-input"')
+    expect(html).not.toContain('>JSON</button>')
+    expect(html).not.toContain('Ver JSON del árbol')
     expect(html).toContain('Mira el árbol.')
     expect(html.match(/class="tree-node node-card/g)).toHaveLength(5)
     expect(html).toContain('Desde las relaciones · postorden')
-    expect(html).toContain('Aventura orbital')
+    expect(html).toContain('Pulso de piano')
     expect(html).toContain('SQL de referencia · Editar')
     expect(html).toContain('Editar sonido · registro y base')
     expect(html).not.toContain('Reunión')

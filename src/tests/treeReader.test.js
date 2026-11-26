@@ -55,7 +55,7 @@ describe('Estado del lector JSON', () => {
 })
 
 describe('Salida visual', () => {
-  it('dibuja ventas completo y deja el JSON cerrado sin tablas de resultados', async () => {
+  it('dibuja ventas completo sin mostrar JSON ni tablas de resultados', async () => {
     const resultado = construirArbol(EJEMPLOS_ARBOL.find(ejemplo => ejemplo.id === 'ventas').documento)
     const html = await renderToString(createSSRApp({ render: () => h(TreeResult, { resultado }) }))
     expect(html.match(/class="tree-node node-card/g)).toHaveLength(9)
@@ -63,7 +63,7 @@ describe('Salida visual', () => {
     expect(html).toContain('PROYECCION_EXTENDIDA')
     expect(html).toContain('Detalle.cantidad * Detalle.precio_unitario AS subtotal')
     expect(html).toContain('role="button" tabindex="0"')
-    expect(html).toContain('<details class="technical-details"><summary>Ver JSON del árbol</summary>')
+    expect(html).not.toContain('Ver JSON del árbol')
     expect(html).not.toContain('<table')
     expect(html).not.toContain('<dt>Nodos')
   })
