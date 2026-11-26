@@ -5,6 +5,7 @@ import { useTreeComparison } from '../composables/useTreeComparison.js'
 import TreeComparison from '../components/comparison/TreeComparison.vue'
 import AlgebraReader from '../components/trees/AlgebraReader.vue'
 import TreeWorkbench from '../components/trees/TreeWorkbench.vue'
+import { crearSecuenciaSampleos } from '../modules/sonification/samplePlan.js'
 import { analizarAlgebra } from '../modules/tree/algebra.js'
 import ejemplo from '../data/examples/biblioteca.algebra.txt?raw'
 
@@ -25,6 +26,26 @@ describe('Comparación e interfaz integrada', () => {
       expect(c.resultado.value.estado).toBe('misma-expresion')
     })
     scope.stop()
+  })
+  it('usa el mismo piano y secuencias distintas para las consultas SQL de ejemplo', () => {
+    const scope = effectScope()
+    try {
+      scope.run(() => {
+        const comparacion = useTreeComparison({ soloSQL: true })
+        comparacion.comparar()
+        expect(comparacion.errores.value).toEqual([])
+        const { a, b } = comparacion.resultado.value
+        const planA = crearSecuenciaSampleos(a.arbol)
+        const planB = crearSecuenciaSampleos(b.arbol)
+        expect(planA.base).toEqual(planB.base)
+        expect(planA.base.muestraId).toBe('base-piano')
+        expect(planA.base.volumen).toBeGreaterThan(0)
+        expect(planA.eventos.map(evento => evento.tipo)).toEqual(['RELACION', 'RELACION', 'JOIN', 'SELECCION', 'PROYECCION'])
+        expect(planB.eventos.map(evento => evento.tipo)).toEqual(['RELACION', 'RELACION', 'JOIN', 'PROYECCION'])
+      })
+    } finally {
+      scope.stop()
+    }
   })
   it('renderiza dos árboles con IDs únicos, controles de audio y métricas', async () => {
     const a = analizarAlgebra(ejemplo).arbol

@@ -5,7 +5,13 @@ import { arbolASQL } from '../modules/sql/treeToSql.js'
 import sql from '../data/examples/biblioteca.sql?raw'
 import algebra from '../data/examples/biblioteca-filtrada.algebra.txt?raw'
 
-const sqlB = sql.replace("WHERE L.anio > 2020\nAND A.pais = 'México'", "WHERE A.pais = 'México'\nAND L.anio > 2020")
+// Para un INNER JOIN, estos filtros pueden escribirse en ON o en WHERE.
+const sqlB = `SELECT DISTINCT L.titulo, A.nombre
+FROM Libro AS L
+INNER JOIN Autor AS A
+  ON L.id_autor = A.id_autor
+  AND L.anio > 2020
+  AND A.pais = 'México';`
 
 export function useTreeComparison({ soloSQL = false } = {}) {
   const ejemploB = soloSQL ? sqlB : algebra
