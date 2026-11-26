@@ -5,6 +5,11 @@ import { procesarArbolJSON } from '../modules/tree/treeLoader.js'
 import biblioteca from '../data/examples/biblioteca.sql?raw'
 
 describe('SQL de biblioteca del capítulo 2', () => {
+  it('conserva ORDER BY sin incluirlo en el predicado WHERE', () => {
+    const resultado = analizarSQL('SELECT titulo, anio FROM Libro WHERE anio > 2020 ORDER BY anio DESC, titulo')
+    expect(resultado.arbol.raiz.parametros.orden).toEqual(['anio DESC', 'titulo ASC'])
+    expect(resultado.arbol.raiz.hijos[0].parametros.predicado).toBe('anio > 2020')
+  })
   it('construye proyección, selección, JOIN y relaciones, conservando alias y texto', () => {
     const resultado = analizarSQL(biblioteca)
     expect(resultado.cantidadNodos).toBe(5)
@@ -125,7 +130,7 @@ describe('Rechazo explícito de SQL no soportado', () => {
     'SELECT * FROM Libro', 'SELECT L.* FROM Libro L', 'SELECT COUNT(id_libro) FROM Libro',
     'SELECT 1 FROM Libro', 'SELECT anio + 1 FROM Libro', 'SELECT titulo AS nombre FROM Libro',
     'SELECT DISTINCT ON (titulo) titulo FROM Libro',
-    'SELECT titulo FROM Libro ORDER BY titulo', 'SELECT id_autor FROM Libro GROUP BY id_autor',
+    'SELECT id_autor FROM Libro GROUP BY id_autor',
     'SELECT titulo FROM Libro LIMIT 5', 'SELECT titulo FROM Libro OFFSET 1',
     'SELECT titulo FROM Libro HAVING anio > 0', 'SELECT titulo FROM Libro FOR UPDATE',
     'SELECT titulo FROM public.Libro', 'SELECT titulo FROM (SELECT titulo FROM Libro) L',

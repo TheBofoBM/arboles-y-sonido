@@ -41,10 +41,15 @@ function revisarParametros(nodo, ruta, errores) {
   const campo = PARAMETRO_POR_TIPO[nodo.tipo]
   const permitidos = new Set([campo])
   if (nodo.tipo === 'RELACION') permitidos.add('alias')
-  if (nodo.tipo === 'PROYECCION') permitidos.add('distinct')
+  if (nodo.tipo === 'PROYECCION') { permitidos.add('distinct'); permitidos.add('orden') }
   revisarCampos(parametros, permitidos, ruta, errores)
   if (nodo.tipo === 'RELACION' && Object.hasOwn(parametros, 'alias') && !esTexto(parametros.alias)) {
     agregarError(errores, 'ALIAS_INVALIDO', `${ruta}.alias`, 'alias debe ser un texto no vacío cuando se proporciona.')
+  }
+  if (nodo.tipo === 'PROYECCION' && Object.hasOwn(parametros, 'orden')
+      && (!Array.isArray(parametros.orden) || !parametros.orden.length || parametros.orden.length > 64
+        || parametros.orden.some(valor => typeof valor !== 'string' || !valor.trim()))) {
+    agregarError(errores, 'ORDEN_INVALIDO', `${ruta}.orden`, 'orden debe contener entre 1 y 64 criterios de ordenamiento.')
   }
   if (nodo.tipo === 'PROYECCION' && Object.hasOwn(parametros, 'distinct') && typeof parametros.distinct !== 'boolean') {
     agregarError(errores, 'DISTINCT_INVALIDO', `${ruta}.distinct`, 'distinct debe ser true o false cuando se proporciona.')

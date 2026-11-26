@@ -13,7 +13,8 @@ export function describirNodo(nodo) {
   if (nodo.tipo === 'RELACION') return p.nombre + (p.alias ? ` · ${p.alias}` : '')
   if (nodo.tipo === 'SELECCION') return p.predicado
   if (nodo.tipo === 'JOIN') return p.condicion
-  return (p.atributos ?? p.expresiones).join(', ')
+  const columnas = (p.atributos ?? p.expresiones).join(', ')
+  return p.orden ? `${columnas} · ORDER BY ${p.orden.join(', ')}` : columnas
 }
 
 /** Centros de padres sobre sus hojas; cada nivel tiene su propia fila. */

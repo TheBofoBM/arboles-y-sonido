@@ -19,7 +19,7 @@ export function useSqlReader() {
     errores.value = respuesta.errores
     estado.value = respuesta.valido ? 'valido' : 'invalido'
   }
-  function cargarEjemplo() { texto.value = biblioteca; reiniciar() }
+  function cargarEjemplo(consulta = biblioteca) { texto.value = consulta; procesar() }
   function limpiar() { texto.value = ''; reiniciar() }
   return { texto, resultado, errores, estado, procesar, cargarEjemplo, limpiar }
 }

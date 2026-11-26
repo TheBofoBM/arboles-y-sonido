@@ -1,10 +1,25 @@
 <script setup>
+import { ref } from 'vue'
+import biblioteca from '../../data/examples/biblioteca.sql?raw'
 import { useSqlReader } from '../../composables/useSqlReader.js'
 import TreeWorkbench from '../trees/TreeWorkbench.vue'
 
 defineEmits(['comparar'])
 const { texto, resultado, errores, estado, procesar, cargarEjemplo, limpiar } = useSqlReader()
 procesar()
+const ejemplos = [
+  { nombre: 'Productos ordenados', sql: 'SELECT nombre, precio FROM Producto ORDER BY precio DESC, nombre ASC;' },
+  { nombre: 'Ventas pagadas', sql: "SELECT id_venta, total FROM Venta WHERE estado = 'Pagada' AND total >= 500;" },
+  { nombre: 'Ciudades sin duplicados', sql: 'SELECT DISTINCT ciudad FROM Cliente ORDER BY ciudad;' },
+  { nombre: 'Pedidos con cliente y sucursal', sql: `SELECT P.id_pedido, C.nombre, S.nombre
+FROM Pedido P
+JOIN Cliente C ON P.id_cliente = C.id_cliente
+JOIN Sucursal S ON P.id_sucursal = S.id_sucursal
+WHERE P.total > 1000
+ORDER BY P.id_pedido DESC;` },
+  { nombre: 'Biblioteca', sql: biblioteca },
+]
+const ejemploElegido = ref('')
 </script>
 
 <template>
@@ -18,12 +33,16 @@ procesar()
       <label for="tree-sql">Consulta SQL</label>
       <p id="sql-help" class="field-help">
         SELECT de columnas, FROM, alias de tablas, INNER JOIN con ON y comparaciones unidas por AND.
-        DISTINCT se conserva en la proyección. No se ejecuta la consulta.
+        Puedes usar DISTINCT y ORDER BY por columnas. El prototipo construye el árbol sin ejecutar SQL.
       </p>
       <textarea id="tree-sql" v-model="texto" rows="9" spellcheck="false" aria-describedby="sql-help" :aria-invalid="estado === 'invalido'"></textarea>
       <div class="editor-actions">
         <button class="button-primary" type="submit">Generar árbol desde SQL</button>
-        <button class="button-secondary" type="button" @click="cargarEjemplo">Cargar consulta de biblioteca</button>
+        <label for="sql-ejemplo">Consulta de ejemplo</label>
+        <select id="sql-ejemplo" v-model="ejemploElegido" @change="cargarEjemplo(ejemploElegido); ejemploElegido = ''">
+          <option disabled value="">Elegir un ejemplo</option>
+          <option v-for="ejemplo in ejemplos" :key="ejemplo.nombre" :value="ejemplo.sql">{{ ejemplo.nombre }}</option>
+        </select>
         <button class="button-secondary" type="button" @click="limpiar">Limpiar SQL</button>
       </div>
     </form>

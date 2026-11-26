@@ -1,5 +1,6 @@
 import { construirArbol } from '../tree/treeLoader.js'
 import { analizarAlgebra, expresarArbol } from '../tree/algebra.js'
+import { analizarSQL } from './sqlToTree.js'
 import { parse } from 'pgsql-ast-parser'
 import { analizarPredicado } from '../validation/predicates.js'
 
@@ -11,8 +12,9 @@ export function arbolASQL(documento) {
   try { analizarAlgebra(expresarArbol(documento)) } catch {
     throw new Error('La referencia SQL admite nombres simples, comparaciones y AND, sin proyección extendida. Revisa el álgebra editable.')
   }
-  let raiz = documento.raiz, columnas = '*', distinct = false
+  let raiz = documento.raiz, columnas = '*', distinct = false, orden = []
   if (raiz.tipo === 'PROYECCION') {
+    orden = raiz.parametros.orden ?? []
     columnas = raiz.parametros.atributos.join(', ')
     distinct = raiz.parametros.distinct !== false
     raiz = raiz.hijos[0]
@@ -42,7 +44,7 @@ export function arbolASQL(documento) {
   const desde = tablas.map((p, i) => i === 0 ? tabla(p) : `INNER JOIN ${tabla(p)}\n  ON ${condiciones.has(i) ? condiciones.get(i).map(agrupar).join(' AND ') : '1 = 1'}`).join('\n')
   // Los filtros pueden reunirse en WHERE porque todas las uniones son INNER
   // JOIN y se rechazaron las proyecciones intermedias.
-  const sql = `SELECT${distinct ? ' DISTINCT' : ''} ${columnas}\nFROM ${desde}${filtros.length ? '\nWHERE ' + filtros.map(agrupar).join('\n  AND ') : ''};`
-  try { parse(sql) } catch { throw new Error('Algún identificador no puede representarse en SQL sin comillas. Usa nombres simples que no sean palabras reservadas.') }
+  const sql = `SELECT${distinct ? ' DISTINCT' : ''} ${columnas}\nFROM ${desde}${filtros.length ? '\nWHERE ' + filtros.map(agrupar).join('\n  AND ') : ''}${orden.length ? '\nORDER BY ' + orden.join(', ') : ''};`
+  try { if (orden.length) analizarSQL(sql); else parse(sql) } catch { throw new Error('Algún identificador no puede representarse en SQL sin comillas. Usa nombres simples que no sean palabras reservadas.') }
   return sql
 }

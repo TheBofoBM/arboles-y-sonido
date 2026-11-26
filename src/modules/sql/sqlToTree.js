@@ -53,7 +53,7 @@ export function analizarSQL(sql) {
     if (!ubicacion || ubicacion.end <= ubicacion.start) fallar('SQL_FUENTE_INVALIDA', 'No se pudo recuperar el texto original de la consulta.')
     return sql.slice(ubicacion.start, ubicacion.end)
   }
-  campos(ast, ['type', 'columns', 'distinct', 'from', 'where'], 'SELECT')
+  campos(ast, ['type', 'columns', 'distinct', 'from', 'where', 'orderBy'], 'SELECT')
   if (ast.distinct !== undefined && ast.distinct !== 'distinct' && ast.distinct !== 'all') {
     fallar('SQL_NO_SOPORTADO', 'Se admite DISTINCT sobre todas las columnas proyectadas; DISTINCT ON no está soportado.')
   }
@@ -69,6 +69,10 @@ export function analizarSQL(sql) {
     && token.nivel === 0 && esPalabra(token, 'WHERE') && tokens[i - 1]?.texto !== '.') : -1
   if (indiceFrom < 0 || (ast.where && indiceWhere < 0)) fallar('SQL_FUENTE_INVALIDA', 'No se pudieron localizar las cláusulas originales de forma segura.')
   const finConsulta = puntosComa[0]?.inicio ?? tokens.at(-1)?.fin ?? sql.length
+  const indiceOrden = ast.orderBy?.length ? tokens.findIndex((token, i) => i > indiceFrom
+    && token.nivel === 0 && esPalabra(token, 'ORDER') && esPalabra(tokens[i + 1], 'BY')) : -1
+  if (ast.orderBy?.length && indiceOrden < 0) fallar('SQL_FUENTE_INVALIDA', 'No se pudo localizar ORDER BY.')
+  const finDatos = indiceOrden < 0 ? finConsulta : tokens[indiceOrden].inicio
   const inicioColumnas = tokens[ast.distinct ? 1 : 0]?.fin
   const partesColumnas = []
   let inicioParte = inicioColumnas
@@ -172,7 +176,7 @@ export function analizarSQL(sql) {
       const tokenOn = tokens.find(token => token.inicio === inicioOn && esPalabra(token, 'ON'))
       if (!tokenOn) fallar('SQL_FUENTE_INVALIDA', 'No se pudo recuperar la condición ON completa.')
       const fin = i + 1 < ast.from.length ? locationOf(ast.from[i + 1]).start
-        : indiceWhere >= 0 ? tokens[indiceWhere].inicio : finConsulta
+        : indiceWhere >= 0 ? tokens[indiceWhere].inicio : finDatos
       const condicion = sql.slice(tokenOn.fin, fin).trim()
       const joinId = `sql-join-${i}`
       joins.push({ id: joinId, condicion })
@@ -190,11 +194,22 @@ export function analizarSQL(sql) {
   const identidades = columnas.map(columna => JSON.stringify([columna.tablaId, columna.nombre]))
   if (new Set(identidades).size !== identidades.length) fallar('SQL_COLUMNAS_REPETIDAS', 'La proyección inicial no admite la misma columna más de una vez.')
   const condicionesSeleccion = ast.where ? predicado(ast.where, ambito) : []
-  const where = ast.where ? sql.slice(tokens[indiceWhere].fin, finConsulta).trim() : null
+  const where = ast.where ? sql.slice(tokens[indiceWhere].fin, finDatos).trim() : null
   if (where !== null) entrada = nodo('sql-seleccion', 'SELECCION', 'WHERE', { predicado: where }, [entrada])
   const distinct = ast.distinct === 'distinct'
+  const orden = ast.orderBy?.map(item => {
+    campos(item, ['by', 'order', 'nulls'], 'ORDER BY')
+    const expr = item.by
+    if (expr.type !== 'ref') fallar('SQL_NO_SOPORTADO', 'ORDER BY admite columnas, sin posiciones ni expresiones.', locationOf(expr)?.start)
+    const columna = referencia(expr, ambito)
+    if (distinct && !columnas.some(c => c.tablaId === columna.tablaId && c.nombre === columna.nombre)) {
+      fallar('SQL_NO_SOPORTADO', 'Con SELECT DISTINCT, incluye en SELECT cada columna de ORDER BY.', locationOf(expr)?.start)
+    }
+    return fuente(expr) + ' ' + (item.order ?? 'ASC') + (item.nulls ? ' NULLS ' + item.nulls : '')
+  })
+  if (orden?.length > LIMITES_SQL.columnas) fallar('SQL_LIMITE', 'ORDER BY admite hasta 64 columnas.')
   const raiz = nodo('sql-proyeccion', 'PROYECCION', distinct ? 'SELECT DISTINCT' : 'SELECT', {
-    atributos: columnas.map(columna => columna.original), distinct,
+    atributos: columnas.map(columna => columna.original), distinct, ...(orden?.length ? { orden } : {}),
   }, [entrada])
   const resultado = construirArbol({ version: 1, raiz })
   return {

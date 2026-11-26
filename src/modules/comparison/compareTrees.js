@@ -16,7 +16,7 @@ function firma(nodo) {
   }
   const p = nodo.parametros
   const params = nodo.tipo === 'RELACION' ? [p.nombre, p.alias ?? null]
-    : nodo.tipo === 'PROYECCION' ? [p.atributos, p.distinct ?? true]
+    : nodo.tipo === 'PROYECCION' ? [p.atributos, p.distinct ?? true, p.orden ?? []]
       : nodo.tipo === 'PROYECCION_EXTENDIDA' ? [p.expresiones]
         : nodo.tipo === 'JOIN' ? [(analizarPredicado(p.condicion)?.map(c => c.firma).sort()) ?? p.condicion]
           : [p.predicado]
