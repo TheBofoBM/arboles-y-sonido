@@ -1,11 +1,42 @@
 <script setup>
-import { defineAsyncComponent, ref, shallowRef } from 'vue'
+import { defineAsyncComponent, ref, shallowRef, watch } from 'vue'
 import ProjectOverview from './components/common/ProjectOverview.vue'
 
 const SqlReader = defineAsyncComponent(() => import('./components/sql/SqlReader.vue'))
 const TreeComparison = defineAsyncComponent(() => import('./components/comparison/TreeComparison.vue'))
 const modoEntrada = ref('sql')
 const comparacion = shallowRef(null)
+const temas = [
+  { id: 'violeta', nombre: 'Violeta' },
+  { id: 'oceano', nombre: 'Océano' },
+  { id: 'bosque', nombre: 'Bosque' },
+]
+const claveTema = 'arboles-y-sonido:tema'
+
+function leerTema() {
+  try {
+    const guardado = globalThis.localStorage?.getItem(claveTema)
+    return temas.find(({ id }) => id === guardado)?.id ?? temas[0].id
+  } catch {
+    return temas[0].id
+  }
+}
+
+const tema = ref(leerTema())
+
+function aplicarTema() {
+  if (globalThis.document) document.documentElement.dataset.tema = tema.value
+}
+aplicarTema()
+watch(tema, () => {
+  aplicarTema()
+  try {
+    globalThis.localStorage?.setItem(claveTema, tema.value)
+  } catch {
+    // El tema sigue disponible durante la sesión si el navegador bloquea el almacenamiento.
+  }
+})
+
 function compararVersiones(par) { comparacion.value = { ...par }; modoEntrada.value = 'comparar' }
 </script>
 
@@ -17,7 +48,15 @@ function compararVersiones(par) { comparacion.value = { ...par }; modoEntrada.va
         <span class="brand-mark" aria-hidden="true">AS</span>
         <span>Árboles y sonido</span>
       </a>
-      <span class="status">Prototipo de tesis</span>
+      <div class="header-actions">
+        <span class="status">Prototipo de tesis</span>
+        <label class="theme-picker">
+          <span>Tema</span>
+          <select v-model="tema">
+            <option v-for="opcion in temas" :key="opcion.id" :value="opcion.id">{{ opcion.nombre }}</option>
+          </select>
+        </label>
+      </div>
     </header>
 
     <main id="contenido" tabindex="-1">
