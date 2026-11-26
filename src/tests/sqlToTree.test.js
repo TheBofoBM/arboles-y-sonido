@@ -1,3 +1,4 @@
+import { arbolASQL } from '../modules/sql/treeToSql.js'
 import { describe, expect, it } from 'vitest'
 import { analizarSQL, procesarSQL, ErrorSQL, LIMITES_SQL } from '../modules/sql/sqlToTree.js'
 import { validarArbol } from '../modules/validation/treeValidation.js'
@@ -50,6 +51,20 @@ describe('SQL de biblioteca del capítulo 2', () => {
 })
 
 describe('Consultas válidas del subconjunto SQL', () => {
+  it.each(['TRUE', 'FALSE'])('conserva filtros booleanos (%s) y ORDER BY al regenerar SQL', activo => {
+    const sql = `SELECT id_cliente, nombre, ciudad
+FROM clientes
+WHERE activo = ${activo}
+  AND ciudad = 'Veracruz'
+ORDER BY nombre ASC;`
+    const resultado = analizarSQL(sql)
+    expect(resultado.arbol.raiz.parametros.orden).toEqual(['nombre ASC'])
+    expect(resultado.arbol.raiz.hijos[0].parametros.predicado).toContain(`activo = ${activo}`)
+    const reimportado = analizarSQL(arbolASQL(resultado.arbol))
+    expect(reimportado.arbol.raiz.hijos[0].parametros.predicado).toContain(`activo = ${activo}`)
+    expect(reimportado.arbol.raiz.parametros.orden).toEqual(['nombre ASC'])
+  })
+
   it.each([
     ['SELECT titulo FROM Libro', false], ['select distinct titulo from Libro;', true], ['SELECT ALL titulo FROM Libro', false],
   ])('representa explícitamente DISTINCT en %s', (sql, distinct) => {

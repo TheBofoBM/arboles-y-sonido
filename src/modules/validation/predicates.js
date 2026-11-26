@@ -32,7 +32,7 @@ export function analizarPredicado(texto) {
     // No usar value: el parser convierte números a Number y puede redondear
     // enteros grandes. La firma conserva la escritura literal para no afirmar
     // equivalencias falsas por pérdida de precisión.
-    if (['integer', 'numeric', 'string'].includes(expr.type) && keys.every(k => ['type', 'value'].includes(k))) return [expr.type, fragmento(expr)]
+    if (['integer', 'numeric', 'string', 'boolean'].includes(expr.type) && keys.every(k => ['type', 'value'].includes(k))) return [expr.type, fragmento(expr)]
     throw new Error()
   }
   function visit(expr) {

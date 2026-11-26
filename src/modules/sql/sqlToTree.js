@@ -117,11 +117,11 @@ export function analizarSQL(sql) {
   }
   function operando(expr, alcance) {
     if (expr.type === 'ref') return referencia(expr, alcance)
-    if (['integer', 'numeric', 'string'].includes(expr.type)) {
+    if (['integer', 'numeric', 'string', 'boolean'].includes(expr.type)) {
       campos(expr, ['type', 'value'], 'Literal')
       return
     }
-    fallar('SQL_NO_SOPORTADO', 'Los predicados admiten solo columnas y literales de texto o número, sin funciones, cálculos ni subconsultas.', locationOf(expr)?.start)
+    fallar('SQL_NO_SOPORTADO', 'Los predicados admiten solo columnas y literales de texto, número o booleanos (TRUE y FALSE), sin funciones, cálculos ni subconsultas.', locationOf(expr)?.start)
   }
   function predicado(expr, alcance) {
     const pendientes = [expr]
